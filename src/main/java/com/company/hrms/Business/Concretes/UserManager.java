@@ -17,7 +17,6 @@ public class UserManager implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userDao.findByEmail(email).orElse(null);
         return userDao.findByEmail(email).orElseThrow(
                 () -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
     }
