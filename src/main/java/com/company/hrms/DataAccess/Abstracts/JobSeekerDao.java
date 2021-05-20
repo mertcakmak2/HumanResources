@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface JobSeekerDao extends JpaRepository<JobSeeker, Integer> {
 
     //Optional<JobSeeker> findByEmail(String email);
+    JobSeeker findByNationalityIdOrEmail(String nationalityId, String email);
 }

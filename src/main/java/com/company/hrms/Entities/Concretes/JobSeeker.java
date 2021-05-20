@@ -28,7 +28,7 @@ public class JobSeeker{
     private String lastName;
 
     @Column(name="nationality_id", unique = true)
-    private Long nationalityId;
+    private String nationalityId;
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
