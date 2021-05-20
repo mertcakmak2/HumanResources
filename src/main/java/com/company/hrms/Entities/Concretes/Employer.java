@@ -22,6 +22,7 @@ public class Employer {
 
     private String lastName;
 
+    @JoinColumn(unique = true)
     private String companyEmail;
 
     private String password;
@@ -30,6 +31,7 @@ public class Employer {
 
     private String companyWebSite;
 
+    @JoinColumn(unique = true)
     private String mobilePhone;
 
     @OneToOne

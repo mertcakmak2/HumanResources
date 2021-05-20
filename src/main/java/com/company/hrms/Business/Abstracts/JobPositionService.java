@@ -8,4 +8,5 @@ public interface JobPositionService {
 
     JobPosition saveJobPosition(JobPosition jobPosition);
     List<JobPosition> findAllJobPositions();
+    String deleteJobPosition(int id);
 }

@@ -1,6 +1,7 @@
 package com.company.hrms.Entities.Concretes;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,6 +41,7 @@ public class JobSeeker{
 
     @OneToOne
     @JoinColumn(name="user_id")
+    @JsonIgnore
     private User user;
 
 }

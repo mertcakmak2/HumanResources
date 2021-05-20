@@ -24,4 +24,9 @@ public class JobPositionController {
         return jobPositionService.findAllJobPositions();
     }
 
+    @DeleteMapping(value = "/{id}")
+    public String deleteJobPosition(@PathVariable int id){
+        return  jobPositionService.deleteJobPosition(id);
+    }
+
 }

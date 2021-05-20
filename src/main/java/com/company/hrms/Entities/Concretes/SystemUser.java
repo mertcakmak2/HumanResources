@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SystemUser {
+public class SystemUser implements Serializable {
 
     @SequenceGenerator(name = "system_user_sequence", sequenceName = "system_user_sequence", allocationSize = 1)
     @Id

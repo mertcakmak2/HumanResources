@@ -1,4 +1,4 @@
-package com.company.hrms.Security;
+package com.company.hrms.Config;
 
 import com.company.hrms.Business.Abstracts.UserService;
 import com.company.hrms.Jwt.JwtFilter;

@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  db:
+    container_name: postgre
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: hrms
+    ports:
+      - "5432:5432"
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+  redis:
+    image: redis
+    container_name: hrms_redis
+    restart: on-failure
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data_volume:/data
+volumes:
+  redis_data_volume:
