@@ -9,7 +9,9 @@ import com.company.hrms.Entities.Concretes.ConfirmationJobSeeker;
 import com.company.hrms.Entities.Concretes.JobSeeker;
 import com.company.hrms.Entities.Concretes.RegisterConfirmToken;
 import com.company.hrms.Entities.Concretes.User;
+import com.company.hrms.Entities.Dto.JobSeekerDto;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +25,12 @@ public class RegisterJobSeekerManager implements RegisterJobSeekerService {
     private final JobSeekerService jobSeekerService;
     private final RegisterConfirmTokenDao registerConfirmTokenDao;
     private final ConfirmationJobSeekerDao confirmationJobSeekerDao;
+    private final ModelMapper mapper;
     private final UserDao userDao;
 
     @Override
-    public JobSeeker registerJobSeeker(JobSeeker jobSeeker) throws Exception {
+    public JobSeekerDto registerJobSeeker(JobSeeker jobSeeker) throws Exception {
+
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         jobSeeker.setPassword(bCryptPasswordEncoder.encode(jobSeeker.getPassword()));
 
@@ -43,7 +47,7 @@ public class RegisterJobSeekerManager implements RegisterJobSeekerService {
         // Todo: Send Confirmation Mail
         // Todo: mailLink => http://localhost:5002/api/register/job-seeker/confirm?token=894b3e96-7a9b-40aa-8a25-b039f74e27c2
 
-        return savedJobSeeker;
+        return mapper.map(savedJobSeeker, JobSeekerDto.class);
     }
 
     @Override

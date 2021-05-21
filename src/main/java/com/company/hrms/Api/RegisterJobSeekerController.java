@@ -2,6 +2,7 @@ package com.company.hrms.Api;
 
 import com.company.hrms.Business.Abstracts.RegisterJobSeekerService;
 import com.company.hrms.Entities.Concretes.JobSeeker;
+import com.company.hrms.Entities.Dto.JobSeekerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,7 +20,7 @@ public class RegisterJobSeekerController {
     private final RegisterJobSeekerService registerJobSeekerService;
 
     @PostMapping(value = "")
-    public JobSeeker registerJobSeeker(@RequestBody JobSeeker jobSeeker) throws Exception {
+    public JobSeekerDto registerJobSeeker(@RequestBody JobSeeker jobSeeker) throws Exception {
         return registerJobSeekerService.registerJobSeeker(jobSeeker);
     }
 
