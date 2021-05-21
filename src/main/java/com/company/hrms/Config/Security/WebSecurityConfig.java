@@ -1,6 +1,7 @@
-package com.company.hrms.Config;
+package com.company.hrms.Config.Security;
 
 import com.company.hrms.Business.Abstracts.UserService;
+import com.company.hrms.Config.Security.AuthEntryPointJwt;
 import com.company.hrms.Jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtFilter jwtFilter;
     private final UserService userDetailsService;
+    private final AuthEntryPointJwt unauthorizedHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -50,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/register/employer/confirm").permitAll()
                 //.antMatchers("/api/test").permitAll()
                 .anyRequest().authenticated()
-                .and().exceptionHandling().and().sessionManagement()
+                .and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
