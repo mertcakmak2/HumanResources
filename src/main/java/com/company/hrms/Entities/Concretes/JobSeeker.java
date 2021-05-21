@@ -41,7 +41,7 @@ public class JobSeeker{
 
     @OneToOne
     @JoinColumn(name="user_id")
-    @JsonIgnore
+    //@JsonIgnore
     private User user;
 
 }

@@ -1,5 +1,6 @@
 package com.company.hrms.Entities.Dto;
 
+import com.company.hrms.Entities.Concretes.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,4 +18,5 @@ public class JobSeekerDto {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
     private String email;
+    private User user;
 }
