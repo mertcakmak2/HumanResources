@@ -2,7 +2,12 @@ package com.company.hrms.Api;
 
 import com.company.hrms.Business.Abstracts.ImageService;
 import com.company.hrms.Business.Abstracts.UserService;
+import com.company.hrms.Entities.Concretes.Image;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,13 +22,13 @@ public class ImageController {
 
     private final ImageService imageService;
 
-    @GetMapping ("/{userId}")
-    public File findImageById(@PathVariable int userId) {
-        return imageService.findImageByUserId(userId);
+    @GetMapping(value = "/{userId}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getImage(@PathVariable int userId) throws IOException {
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageService.findImageByUserId(userId));
     }
 
     @PostMapping("/{userId}")
-    public String uploadImage(@RequestParam("file") MultipartFile file, @PathVariable int userId) throws IOException {
+    public Image uploadImage(@RequestParam("file") MultipartFile file, @PathVariable int userId) throws IOException, InterruptedException {
         return imageService.saveUserImage(file, userId);
     }
 

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface ImageDao extends JpaRepository<Image, Integer> {
 
     Image findByUserId(int userId);
+
 }

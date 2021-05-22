@@ -22,8 +22,11 @@ public class Image {
     @Column(unique = true)
     private int userId;
 
-    public Image(String imagePath, int userId) {
+    private byte[] bytes;
+
+    public Image(String imagePath, int userId, byte[] bytes) {
         this.imagePath = imagePath;
         this.userId = userId;
+        this.bytes = bytes;
     }
 }

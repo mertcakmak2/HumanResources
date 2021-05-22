@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/register/job-seeker/confirm").permitAll()
                 .antMatchers("/api/register/employer").permitAll()
                 .antMatchers("/api/register/employer/confirm").permitAll()
+                .antMatchers("/api/image/**").permitAll()
                 //.antMatchers("/api/test").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
