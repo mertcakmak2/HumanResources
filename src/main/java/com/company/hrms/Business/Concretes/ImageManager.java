@@ -4,15 +4,11 @@ import com.company.hrms.Business.Abstracts.ImageService;
 import com.company.hrms.DataAccess.Abstracts.ImageDao;
 import com.company.hrms.Entities.Concretes.Image;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 @Service
@@ -31,11 +27,10 @@ public class ImageManager implements ImageService {
         return imageDao.save(new Image("images/"+userImage.getOriginalFilename(), userId, bytes));
     }
 
+    @Transactional
     @Override
     public String deleteUserImage(int userId) {
-
-        // TODO
-
-        return null;
+        imageDao.deleteUsersByUserId(userId);
+        return "User image successfully deleted userId="+userId;
     }
 }

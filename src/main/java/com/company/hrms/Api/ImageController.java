@@ -1,17 +1,13 @@
 package com.company.hrms.Api;
 
 import com.company.hrms.Business.Abstracts.ImageService;
-import com.company.hrms.Business.Abstracts.UserService;
 import com.company.hrms.Entities.Concretes.Image;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 
 @RestController

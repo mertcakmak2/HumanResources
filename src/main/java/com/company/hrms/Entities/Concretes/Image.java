@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "images")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
