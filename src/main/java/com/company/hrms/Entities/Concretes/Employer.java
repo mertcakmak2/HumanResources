@@ -25,7 +25,7 @@ public class Employer {
     @JoinColumn(unique = true)
     private String companyEmail;
 
-    private String password;
+    //private String password;
 
     private String companyName;
 

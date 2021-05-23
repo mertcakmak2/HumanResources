@@ -24,8 +24,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private int id;
 
-    @Column(name="email", unique = true)
+    @Column(name="email", unique = true, nullable = false)
+    @JsonIgnore
     private String email;
+    @Column(name="password", nullable = false)
     private String password;
     private Boolean locked = false;
     private Boolean enabled = false;

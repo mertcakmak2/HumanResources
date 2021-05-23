@@ -7,12 +7,13 @@ import com.company.hrms.DataAccess.Abstracts.JobSeekerDao;
 import com.company.hrms.DataAccess.Abstracts.UserDao;
 import com.company.hrms.Entities.Concretes.JobSeeker;
 import com.company.hrms.Entities.Concretes.User;
+import com.company.hrms.Entities.Dto.JobSeeker.JobSeekerRegisterDto;
 import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import sun.security.validator.ValidatorException;
 
 import javax.persistence.EntityExistsException;
 import javax.xml.bind.ValidationException;
@@ -25,14 +26,15 @@ public class JobSeekerManager implements JobSeekerService {
     private final JobSeekerDao jobSeekerDao;
     private final UserDao userDao;
     @Qualifier(value = "MernisIdendityAdapter")
-    private final IdentityVerificationService identityVerificationService;
+    private final IdentityVerificationService mernisVerificationAdapter;
+    private final ModelMapper mapper;
 
     @Override
-    public JobSeeker saveJobSeeker(JobSeeker jobSeeker) throws Exception {
+    public JobSeeker saveJobSeeker(JobSeekerRegisterDto jobSeekerRegisterDto) throws Exception {
+        JobSeeker jobSeeker = mapper.map(jobSeekerRegisterDto, JobSeeker.class);
+        validateJobSeeker(jobSeekerRegisterDto);
 
-        validateJobSeeker(jobSeeker);
-
-        User user = userDao.save(new User(jobSeeker.getEmail(), jobSeeker.getPassword()));
+        User user = userDao.save(new User(jobSeeker.getEmail(), jobSeekerRegisterDto.getPassword()));
         jobSeeker.setUser(user);
 
         return jobSeekerDao.save(jobSeeker);
@@ -54,23 +56,22 @@ public class JobSeekerManager implements JobSeekerService {
         return jobSeeker;
     }
 
-    @Override
-    public boolean validateJobSeeker(JobSeeker jobSeeker) throws Exception {
+    public boolean validateJobSeeker(JobSeekerRegisterDto jobSeekerRegisterDto) throws Exception {
         // Mernis Verification
-        if(!identityVerificationService.verificationUser(jobSeeker)){
+        if(!mernisVerificationAdapter.verificationUser(jobSeekerRegisterDto)){
             throw new UsernameNotFoundException("Mernis kimlik bilgilerini doğrulayamadı");
         }
         // Email Regex
-        if(!Util.checkUserEmail(jobSeeker.getEmail())){
+        if(!Util.checkUserEmail(jobSeekerRegisterDto.getEmail())){
             throw new IllegalStateException("Lütfen geçerli bir email adresi giriniz");
         }
         // Field controls
-        if(jobSeeker.getFirstName().isEmpty() || jobSeeker.getLastName().isEmpty() || jobSeeker.getNationalityId() == null
-                || jobSeeker.getBirthDate() == null || jobSeeker.getPassword() == null ){
+        if(jobSeekerRegisterDto.getFirstName().isEmpty() || jobSeekerRegisterDto.getLastName().isEmpty() || jobSeekerRegisterDto.getNationalityId() == null
+                || jobSeekerRegisterDto.getBirthDate() == null || jobSeekerRegisterDto.getPassword() == null ){
             throw new ValidationException("Tüm alanları doldurduğunuzdan emin olunuz.");
         }
         // Email and Nationality Number exist record control
-        if(jobSeekerDao.findByNationalityIdOrEmail(jobSeeker.getNationalityId(), jobSeeker.getEmail()) != null){
+        if(jobSeekerDao.findByNationalityIdOrEmail(jobSeekerRegisterDto.getNationalityId(), jobSeekerRegisterDto.getEmail()) != null){
             throw new EntityExistsException("Bu email yada kimlik numarası kullanılmakta.");
         }
         return true;

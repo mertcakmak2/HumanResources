@@ -19,17 +19,17 @@ public class ImageController {
     private final ImageService imageService;
 
     @GetMapping(value = "/{userId}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> getImage(@PathVariable int userId) throws IOException {
+    public ResponseEntity<byte[]> getProfileImage(@PathVariable int userId) throws IOException {
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageService.findImageByUserId(userId));
     }
 
     @PostMapping("/{userId}")
-    public Image uploadImage(@RequestParam("file") MultipartFile file, @PathVariable int userId) throws IOException, InterruptedException {
+    public Image uploadProfileImage(@RequestParam("file") MultipartFile file, @PathVariable int userId) throws IOException, InterruptedException {
         return imageService.saveUserImage(file, userId);
     }
 
     @DeleteMapping ("/{userId}")
-    public String deleteImage(@PathVariable int userId) {
+    public String deleteProfileImage(@PathVariable int userId) {
         return imageService.deleteUserImage(userId);
     }
 }

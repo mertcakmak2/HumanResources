@@ -9,6 +9,7 @@ import com.company.hrms.Entities.Concretes.ConfirmationEmployer;
 import com.company.hrms.Entities.Concretes.ConfirmationJobSeeker;
 import com.company.hrms.Entities.Concretes.Employer;
 import com.company.hrms.Entities.Concretes.RegisterConfirmToken;
+import com.company.hrms.Entities.Dto.Employer.EmployerRegisterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,11 @@ public class RegisterEmployerManager implements RegisterEmployerService {
     private final ConfirmationEmployerDao confirmationEmployerDao;
 
     @Override
-    public Employer registerEmployer(Employer employer) throws Exception {
+    public Employer registerEmployer(EmployerRegisterDto employerRegisterDto) throws Exception {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        employer.setPassword(bCryptPasswordEncoder.encode(employer.getPassword()));
+        employerRegisterDto.setPassword(bCryptPasswordEncoder.encode(employerRegisterDto.getPassword()));
 
-        Employer savedEmployer = employerService.saveEmployer(employer);
+        Employer savedEmployer = employerService.saveEmployer(employerRegisterDto);
         RegisterConfirmToken registerConfirmToken = registerConfirmTokenDao.save(new RegisterConfirmToken(
                 UUID.randomUUID().toString(),
                 LocalDateTime.now(),

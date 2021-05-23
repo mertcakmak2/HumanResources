@@ -2,6 +2,7 @@ package com.company.hrms.Api;
 
 import com.company.hrms.Business.Abstracts.RegisterEmployerService;
 import com.company.hrms.Entities.Concretes.Employer;
+import com.company.hrms.Entities.Dto.Employer.EmployerRegisterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +14,8 @@ public class RegisterEmployerController {
     private final RegisterEmployerService registerEmployerService;
 
     @PostMapping("")
-    public Employer registerEmployer(@RequestBody Employer employer) throws Exception {
-        return registerEmployerService.registerEmployer(employer);
+    public Employer registerEmployer(@RequestBody EmployerRegisterDto employerRegisterDto) throws Exception {
+        return registerEmployerService.registerEmployer(employerRegisterDto);
     }
 
     @GetMapping("/confirm")

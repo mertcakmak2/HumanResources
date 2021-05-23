@@ -17,6 +17,7 @@ public class JobPositionController {
     private final JobPositionService jobPositionService;
 
     @PostMapping(value = "")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public JobPosition saveJobPosition(@RequestBody JobPosition jobPosition) {
         return jobPositionService.saveJobPosition(jobPosition);
     }

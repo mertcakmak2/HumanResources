@@ -1,15 +1,11 @@
 package com.company.hrms.Entities.Concretes;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -37,7 +33,7 @@ public class JobSeeker{
     @Column(name="email", unique = true)
     private String email;
 
-    private String password;
+    //private String password;
 
     @OneToOne
     @JoinColumn(name="user_id")

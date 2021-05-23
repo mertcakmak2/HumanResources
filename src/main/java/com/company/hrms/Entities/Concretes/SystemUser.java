@@ -32,8 +32,6 @@ public class SystemUser implements Serializable {
 
     private String position;
 
-    private String password;
-
     @OneToOne
     @JoinColumn(name="user_id")
     private User user;

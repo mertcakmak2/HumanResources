@@ -2,7 +2,8 @@ package com.company.hrms.Api;
 
 import com.company.hrms.Business.Abstracts.RegisterJobSeekerService;
 import com.company.hrms.Entities.Concretes.JobSeeker;
-import com.company.hrms.Entities.Dto.JobSeekerDto;
+import com.company.hrms.Entities.Dto.JobSeeker.JobSeekerDefaultReturnDto;
+import com.company.hrms.Entities.Dto.JobSeeker.JobSeekerRegisterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.ValidationException;
 
 @RestController
 @RequestMapping("/api/register/job-seeker")
@@ -20,8 +20,8 @@ public class RegisterJobSeekerController {
     private final RegisterJobSeekerService registerJobSeekerService;
 
     @PostMapping(value = "")
-    public JobSeekerDto registerJobSeeker(@RequestBody JobSeeker jobSeeker) throws Exception {
-        return registerJobSeekerService.registerJobSeeker(jobSeeker);
+    public JobSeekerDefaultReturnDto registerJobSeeker(@RequestBody JobSeekerRegisterDto jobSeekerRegisterDto) throws Exception {
+        return registerJobSeekerService.registerJobSeeker(jobSeekerRegisterDto);
     }
 
     @GetMapping(value = "/confirm")
