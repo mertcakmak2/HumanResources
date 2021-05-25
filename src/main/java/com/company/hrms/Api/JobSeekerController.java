@@ -17,7 +17,7 @@ public class JobSeekerController {
     private final JobSeekerService jobSeekerService;
 
     @GetMapping(value = "")
-    public List<JobSeeker> findAllEmployers(){
+    public List<JobSeeker> findAllJobSeekers(){
         return jobSeekerService.findAllJobSeekers();
     }
 
