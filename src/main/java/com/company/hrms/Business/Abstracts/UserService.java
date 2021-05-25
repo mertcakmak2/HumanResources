@@ -1,8 +1,11 @@
 package com.company.hrms.Business.Abstracts;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.company.hrms.Entities.Concretes.User;
+import javassist.NotFoundException;
 
-public interface UserService extends UserDetailsService {
+public interface UserService {
 
+    User findUserByEmail(String email) throws NotFoundException;
 
+    User confirmUser(User user);
 }

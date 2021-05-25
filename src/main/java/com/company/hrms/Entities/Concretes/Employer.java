@@ -5,36 +5,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "employers")
+@PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Employer {
-
-    @SequenceGenerator(name = "employer_sequence", sequenceName = "employer_sequence", allocationSize = 1)
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employer_sequence")
-    private int id;
+public class Employer extends User {
 
     private String firstName;
 
     private String lastName;
 
-    @JoinColumn(unique = true)
-    private String companyEmail;
-
-    //private String password;
-
     private String companyName;
 
     private String companyWebSite;
 
-    @JoinColumn(unique = true)
+    @Column(unique = true)
     private String mobilePhone;
 
-    @OneToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    @Column(name = "created_at")
+    private Date createdAt = new Date();
+    private Boolean isActive = true;
+
 }

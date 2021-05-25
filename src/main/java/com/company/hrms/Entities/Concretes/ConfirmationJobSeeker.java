@@ -14,9 +14,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ConfirmationJobSeeker {
 
-    @SequenceGenerator(name = "confirmation_job_seeker_sequence", sequenceName = "confirmation_job_seeker_sequence", allocationSize = 1)
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "confirmation_job_seeker_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne

@@ -1,42 +1,30 @@
 package com.company.hrms.Business.Concretes;
 
-import com.company.hrms.Business.Abstracts.EmployerService;
-import com.company.hrms.Business.Abstracts.RegisterEmployerService;
+import com.company.hrms.Business.Abstracts.*;
+import com.company.hrms.Core.Email.Abstracts.MailService;
 import com.company.hrms.DataAccess.Abstracts.ConfirmationEmployerDao;
-import com.company.hrms.DataAccess.Abstracts.ConfirmationJobSeekerDao;
-import com.company.hrms.DataAccess.Abstracts.RegisterConfirmTokenDao;
-import com.company.hrms.Entities.Concretes.ConfirmationEmployer;
-import com.company.hrms.Entities.Concretes.ConfirmationJobSeeker;
-import com.company.hrms.Entities.Concretes.Employer;
-import com.company.hrms.Entities.Concretes.RegisterConfirmToken;
-import com.company.hrms.Entities.Dto.Employer.EmployerRegisterDto;
+import com.company.hrms.Entities.Concretes.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class RegisterEmployerManager implements RegisterEmployerService {
 
+    private final UserService userService;
     private final EmployerService employerService;
-    private final RegisterConfirmTokenDao registerConfirmTokenDao;
+    private final SystemUserService systemUserService;
+    private final ConfirmTokenService confirmTokenService;
     private final ConfirmationEmployerDao confirmationEmployerDao;
+    @Qualifier(value = "MailManager")
+    private final MailService mailManager;
 
     @Override
-    public Employer registerEmployer(EmployerRegisterDto employerRegisterDto) throws Exception {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        employerRegisterDto.setPassword(bCryptPasswordEncoder.encode(employerRegisterDto.getPassword()));
+    public Employer registerEmployer(Employer employer) throws Exception {
 
-        Employer savedEmployer = employerService.saveEmployer(employerRegisterDto);
-        RegisterConfirmToken registerConfirmToken = registerConfirmTokenDao.save(new RegisterConfirmToken(
-                UUID.randomUUID().toString(),
-                LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(30L),
-                savedEmployer.getUser()
-        ));
+        Employer savedEmployer = employerService.saveEmployer(employer);
+        RegisterConfirmToken registerConfirmToken = confirmTokenService.saveMailConfirmToken(savedEmployer);
 
         ConfirmationEmployer confirmationEmployer= new ConfirmationEmployer(registerConfirmToken, savedEmployer);
         confirmationEmployerDao.save(confirmationEmployer);
@@ -48,12 +36,33 @@ public class RegisterEmployerManager implements RegisterEmployerService {
     }
 
     @Override
-    public String confirmWithEmail(String token) {
-        return null;
+    public String confirmWithEmail(String token) throws Exception {
+
+        RegisterConfirmToken confirmedToken = confirmTokenService.confirmMailToken(token);
+
+        Employer employer = employerService.findEmployerById(confirmedToken.getUser().getId());
+
+        ConfirmationEmployer confirmationEmployer = confirmationEmployerDao.findByEmployer_Id(employer.getId());
+
+        if(confirmationEmployer.getSystemUser() != null){
+            userService.confirmUser(confirmedToken.getUser());
+        }
+        return confirmedToken.getUser().getEmail()+" has been successfully confirmed with email.";
     }
 
     @Override
-    public String confirmWithSystemUser(int employerId, int systemUserId) {
-        return null;
+    public String confirmEmployerWithSystemUser(int employerId, int systemUserId) throws Exception {
+
+        RegisterConfirmToken confirmedToken = confirmTokenService.findByUserId(employerId);
+        SystemUser systemUser = systemUserService.findSystemUserById(systemUserId);
+
+        ConfirmationEmployer confirmationEmployer = confirmationEmployerDao.findByEmployer_Id(employerId);
+        confirmationEmployer.setSystemUser(systemUser);
+
+        if(confirmedToken.getConfirmedAt() != null){
+            userService.confirmUser(confirmedToken.getUser());
+            confirmationEmployerDao.save(confirmationEmployer);
+        }
+        return confirmedToken.getUser().getEmail()+" has been successfully confirmed from "+ systemUser.getEmail();
     }
 }

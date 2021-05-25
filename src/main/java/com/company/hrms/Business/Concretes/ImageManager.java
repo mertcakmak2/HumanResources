@@ -24,7 +24,7 @@ public class ImageManager implements ImageService {
     @Override
     public Image saveUserImage(MultipartFile userImage, int userId) throws IOException, InterruptedException {
         byte[] bytes = StreamUtils.copyToByteArray(userImage.getInputStream());
-        return imageDao.save(new Image("images/"+userImage.getOriginalFilename(), userId, bytes));
+        return imageDao.save(new Image( userId, bytes));
     }
 
     @Transactional

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "images")
@@ -13,19 +14,18 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Image {
 
-    @SequenceGenerator(name = "image_sequence", sequenceName = "image_sequence", allocationSize = 1)
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String imagePath;
-
     @Column(unique = true)
     private int userId;
-
     private byte[] bytes;
 
-    public Image(String imagePath, int userId, byte[] bytes) {
-        this.imagePath = imagePath;
+    @Column(name = "created_at")
+    private Date createdAt = new Date();
+    private Boolean isActive = true;
+
+    public Image(int userId, byte[] bytes) {
         this.userId = userId;
         this.bytes = bytes;
     }

@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface RegisterConfirmTokenDao extends JpaRepository<RegisterConfirmToken, Integer> {
 
     Optional<RegisterConfirmToken> findByToken(String token);
+    Optional<RegisterConfirmToken> findByUserId(int userId);
 }

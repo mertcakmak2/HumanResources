@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ConfirmationEmployerDao extends JpaRepository<ConfirmationEmployer, Integer> {
+
+    ConfirmationEmployer findByEmployer_Id(int employerId);
 }

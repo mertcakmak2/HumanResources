@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "job_positions")
@@ -15,17 +16,20 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class JobPosition implements Serializable {
 
-    @SequenceGenerator(name = "job_position_sequence", sequenceName = "job_position_sequence", allocationSize = 1)
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_position_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(unique = true)
     private String positionName;
 
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name = "system_user_id")
     @JsonIgnore
-    private SystemUser systemUser;
+    private SystemUser systemUser;*/
+
+    @Column(name = "created_at")
+    private Date createdAt = new Date();
+    private Boolean isActive = true;
 
 }

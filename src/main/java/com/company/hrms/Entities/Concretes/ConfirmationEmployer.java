@@ -13,9 +13,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ConfirmationEmployer {
 
-    @SequenceGenerator(name = "confirmation_employer_sequence", sequenceName = "confirmation_employer_sequence", allocationSize = 1)
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "confirmation_employer_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
@@ -23,7 +22,7 @@ public class ConfirmationEmployer {
     private RegisterConfirmToken registerConfirmToken;
 
     @ManyToOne
-    @JoinColumn(name = "confirmed_system_user_id")
+    @JoinColumn(name = "confirmer_system_user_id")
     private SystemUser systemUser;
 
     @ManyToOne

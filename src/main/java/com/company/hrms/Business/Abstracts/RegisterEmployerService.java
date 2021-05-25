@@ -1,11 +1,11 @@
 package com.company.hrms.Business.Abstracts;
 
 import com.company.hrms.Entities.Concretes.Employer;
-import com.company.hrms.Entities.Dto.Employer.EmployerRegisterDto;
+import javassist.NotFoundException;
 
 public interface RegisterEmployerService {
 
-    Employer registerEmployer(EmployerRegisterDto employerRegisterDto) throws Exception;
-    String confirmWithEmail(String token);
-    String confirmWithSystemUser(int employerId, int systemUserId);
+    Employer registerEmployer(Employer employer) throws Exception;
+    String confirmWithEmail(String token) throws NotFoundException, Exception;
+    String confirmEmployerWithSystemUser(int employerId, int systemUserId) throws NotFoundException, Exception;
 }

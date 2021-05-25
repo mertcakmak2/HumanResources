@@ -10,34 +10,23 @@ import java.util.Date;
 
 @Entity
 @Table(name = "job_seekers")
+@PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
 @NoArgsConstructor
-public class JobSeeker{
-
-    @SequenceGenerator(name = "job_seeker_sequence", sequenceName = "job_seeker_sequence", allocationSize = 1)
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_seeker_sequence")
-    private int id;
+public class JobSeeker extends User{
 
     private String firstName;
-
     private String lastName;
 
     @Column(name="nationality_id", unique = true)
     private String nationalityId;
 
+    @Column(unique = true)
+    private String mobilePhone;
+
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
 
-    @Column(name="email", unique = true)
-    private String email;
-
-    //private String password;
-
-    @OneToOne
-    @JoinColumn(name="user_id")
-    //@JsonIgnore
-    private User user;
 
 }

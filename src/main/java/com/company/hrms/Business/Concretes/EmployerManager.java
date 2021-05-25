@@ -2,14 +2,9 @@ package com.company.hrms.Business.Concretes;
 
 import com.company.hrms.Business.Abstracts.EmployerService;
 import com.company.hrms.DataAccess.Abstracts.EmployerDao;
-import com.company.hrms.DataAccess.Abstracts.UserDao;
 import com.company.hrms.Entities.Concretes.Employer;
-import com.company.hrms.Entities.Concretes.User;
-import com.company.hrms.Entities.Dto.Employer.EmployerRegisterDto;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,25 +14,18 @@ import java.util.List;
 public class EmployerManager implements EmployerService {
 
     private final EmployerDao employerDao;
-    private final UserDao userDao;
-    private final ModelMapper mapper;
 
     @Override
-    public Employer saveEmployer(EmployerRegisterDto employerRegisterDto) throws Exception {
-        Employer employer = mapper.map(employerRegisterDto, Employer.class);
+    public Employer saveEmployer(Employer employer) throws Exception {
 
-        // TODO: validate işlemleri yapılacak
         validateEmployer(employer);
-
-        User user = userDao.save(new User(employer.getCompanyEmail(), employerRegisterDto.getPassword()));
-        employer.setUser(user);
 
         return employerDao.save(employer);
     }
 
     @Override
-    public Employer findEmployerById(int id) throws UsernameNotFoundException {
-        return employerDao.findById(id).orElseThrow(() -> new UsernameNotFoundException("employer not found"));
+    public Employer findEmployerById(int id) throws NotFoundException {
+        return employerDao.findById(id).orElseThrow(() -> new NotFoundException("employer not found"));
     }
 
     @Override
