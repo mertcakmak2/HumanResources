@@ -46,7 +46,7 @@ public class JobSeekerManager implements JobSeekerService {
         return jobSeeker;
     }
 
-    public boolean validateJobSeeker(JobSeeker jobSeeker) throws Exception {
+    public void validateJobSeeker(JobSeeker jobSeeker) throws Exception {
         // Mernis Verification
         if (!mernisVerificationAdapter.verificationUser(jobSeeker)) {
             throw new EntityExistsException("Mernis kimlik bilgilerini doğrulayamadı");
@@ -64,6 +64,5 @@ public class JobSeekerManager implements JobSeekerService {
         if (jobSeekerDao.findByNationalityIdOrEmail(jobSeeker.getNationalityId(), jobSeeker.getEmail()) != null) {
             throw new EntityExistsException("Bu email yada kimlik numarası kullanılmakta.");
         }
-        return true;
     }
 }

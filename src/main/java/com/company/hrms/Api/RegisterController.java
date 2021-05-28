@@ -52,7 +52,7 @@ public class RegisterController {
             EntityExistsException.class,
             ValidationException.class
     })
-    public ResponseEntity handleException(RuntimeException e, HttpServletRequest httpServletRequest) {
+    public ResponseEntity handleException(Exception e, HttpServletRequest httpServletRequest) {
         return ResponseEntity.status(404).body("Exception Message Found: "+e.getMessage());
     }
 

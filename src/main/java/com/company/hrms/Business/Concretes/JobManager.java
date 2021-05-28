@@ -7,10 +7,12 @@ import com.company.hrms.Core.Utilities.Result.SuccessDataResult;
 import com.company.hrms.Core.Utilities.Result.SuccessResult;
 import com.company.hrms.DataAccess.Abstracts.JobDao;
 import com.company.hrms.Entities.Concretes.Job;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @Service
@@ -41,7 +43,10 @@ public class JobManager implements JobService {
     }
 
     @Override
-    public DataResult<Job> announceJob(Job job) {
+    public DataResult<Job> announceJob(Job job) throws Exception {
+
+        validateJob(job);
+
         return new SuccessDataResult<Job>(
                 jobDao.save(job)
                 ,"İş ilanı eklendi.");
@@ -51,5 +56,12 @@ public class JobManager implements JobService {
     public Result closeJobAnnounce(int id) {
         jobDao.closeJobAnnounce(id);
         return new SuccessResult("İlan kapatıldı id: "+id);
+    }
+
+    public void validateJob(Job job) throws Exception {
+        if(job.getJobPosition() == null) throw new ValidationException("Pozisyon alanı boş bırakılamaz.");
+        if(job.getJobDescription() == null) throw new ValidationException("İş tanımı alanı boş bırakılamaz.");
+        if(job.getCity() == null)throw new ValidationException("Şehir alanı boş bırakılamaz.");
+        if(job.getPositionCount() == 0)throw new ValidationException("Pozisyon sayısı boş bırakılamaz.");
     }
 }
