@@ -1,4 +1,4 @@
-package com.company.hrms.Core.Util;
+package com.company.hrms.Core.Utilities;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

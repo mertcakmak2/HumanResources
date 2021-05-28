@@ -39,14 +39,6 @@ public class RegisterEmployerManager implements RegisterEmployerService {
     public String confirmWithEmail(String token) throws Exception {
 
         RegisterConfirmToken confirmedToken = confirmTokenService.confirmMailToken(token);
-
-        Employer employer = employerService.findEmployerById(confirmedToken.getUser().getId());
-
-        ConfirmationEmployer confirmationEmployer = confirmationEmployerDao.findByEmployer_Id(employer.getId());
-
-        if(confirmationEmployer.getSystemUser() != null){
-            userService.confirmUser(confirmedToken.getUser());
-        }
         return confirmedToken.getUser().getEmail()+" has been successfully confirmed with email.";
     }
 

@@ -40,8 +40,8 @@ public class RegisterJobSeekerManager implements RegisterJobSeekerService {
     @Override
     public String confirmJobSeekerTokenWithEmail(String token) {
         RegisterConfirmToken confirmedToken = confirmTokenService.confirmMailToken(token);
-        User user = userService.confirmUser(confirmedToken.getUser());
-        return user.getEmail()+" has been successfully confirmed with email.";
+        userService.confirmUser(confirmedToken.getUser());
+        return confirmedToken.getUser().getEmail()+" has been successfully confirmed with email.";
     }
 
 }

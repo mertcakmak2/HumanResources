@@ -2,7 +2,7 @@ package com.company.hrms.Business.Concretes;
 
 import com.company.hrms.Business.Abstracts.JobSeekerService;
 import com.company.hrms.Core.IdentityVerificationService;
-import com.company.hrms.Core.Util.Util;
+import com.company.hrms.Core.Utilities.Util;
 import com.company.hrms.DataAccess.Abstracts.JobSeekerDao;
 import com.company.hrms.Entities.Concretes.JobSeeker;
 import javassist.NotFoundException;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
-import javax.security.auth.login.AccountNotFoundException;
 import javax.xml.bind.ValidationException;
 import java.util.List;
 
