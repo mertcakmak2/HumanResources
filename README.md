@@ -3,7 +3,7 @@ Account Registration and Confirmation.
 Exception Handling.
 Caching with Redis.
 
-![Screenshot_33](https://user-images.githubusercontent.com/21373505/120020447-61478500-bff2-11eb-8c8b-e4143bc2ee21.png)
+![Screenshot_35](https://user-images.githubusercontent.com/21373505/120041877-be066800-c011-11eb-9fa8-929f07a29502.png)
 
 ![Screenshot_31](https://user-images.githubusercontent.com/21373505/119566259-9c0faa00-bdb3-11eb-813d-a90a057f4296.png)
 
