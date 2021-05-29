@@ -29,7 +29,6 @@ public class JobPositionManager implements JobPositionService {
     @Override
     @Cacheable(cacheNames = "job_position_cache")
     public List<JobPosition> findAllJobPositions() {
-        System.out.println("Fetch to Db!");
         return jobPositionDao.findAll();
     }
 
@@ -37,6 +36,6 @@ public class JobPositionManager implements JobPositionService {
     @Override
     public String deleteJobPosition(int id) {
         jobPositionDao.deleteById(id);
-        return "Successfully deleted.";
+        return "İş pozisyonu başaraıyla silindi.";
     }
 }

@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 public class MailManager implements MailService {
 
     @Override
-    public void sendConfirmationMail(String email, String token) {
-        System.out.println("Doğrulama maili gönderildi. Email: "+email+" Token: "+token);
+    public void sendConfirmationMail(String email, String url ,String token) {
+        String confirmationLink = url+"?token="+token;
+        System.out.println("Doğrulama maili gönderildi. Email: "+email+" Token: "+token+" ConfirmationLink: "+confirmationLink);
     }
 }

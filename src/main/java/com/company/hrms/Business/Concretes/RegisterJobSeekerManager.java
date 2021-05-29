@@ -32,7 +32,10 @@ public class RegisterJobSeekerManager implements RegisterJobSeekerService {
         confirmationJobSeekerDao.save(confirmationJobSeeker);
 
         // Todo: Send Confirmation Mail
-        // Todo: mailLink => http://localhost:5002/api/register/job-seeker/confirm?token=894b3e96-7a9b-40aa-8a25-b039f74e27c2
+        mailManager.sendConfirmationMail(savedJobSeeker.getEmail(),
+                "http://localhost:5002/api/register/job-seeker/confirm",
+                registerConfirmToken.getToken()
+        );
 
         return savedJobSeeker;
     }
@@ -41,7 +44,7 @@ public class RegisterJobSeekerManager implements RegisterJobSeekerService {
     public String confirmJobSeekerTokenWithEmail(String token) {
         RegisterConfirmToken confirmedToken = confirmTokenService.confirmMailToken(token);
         userService.confirmUser(confirmedToken.getUser());
-        return confirmedToken.getUser().getEmail()+" has been successfully confirmed with email.";
+        return confirmedToken.getUser().getEmail()+" aktivasyon işlemi başarılı.";
     }
 
 }

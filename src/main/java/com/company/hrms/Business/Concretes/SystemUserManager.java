@@ -16,6 +16,6 @@ public class SystemUserManager implements SystemUserService {
 
     @Override
     public SystemUser findSystemUserById(int id) {
-        return systemUserDao.findById(id).orElseThrow(() -> new EntityNotFoundException("System user not found"));
+        return systemUserDao.findById(id).orElseThrow(() -> new EntityNotFoundException("System user bulunamadı"));
     }
 }

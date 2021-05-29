@@ -2,14 +2,12 @@ package com.company.hrms.Entities.Concretes;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
-@Table(name = "job_announcement")
+@Table(name = "jobs")
 @Data
 @NoArgsConstructor
 public class Job {
@@ -20,22 +18,22 @@ public class Job {
 
     private String companyName;
 
-    //Zorunlu
     @ManyToOne
     @JoinColumn(name = "job_position_id")
     private JobPosition jobPosition;
 
-    //Zorunlu
+    @ManyToOne
+    @JoinColumn(name = "employer_id")
+    private Employer employer;
+
     private String jobDescription;
 
-    //Zorunlu
     private String city;
 
     private int minSalary;
 
     private int maxSalary;
 
-    //Zorunlu
     private int positionCount;
 
     private LocalDate lastDateOfAppeal;

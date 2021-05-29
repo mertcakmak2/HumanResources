@@ -7,6 +7,8 @@ import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 public class UserManager implements UserService {
@@ -16,7 +18,7 @@ public class UserManager implements UserService {
     @Override
     public User findUserByEmail(String email) throws NotFoundException {
         return userDao.findByEmail(email).orElseThrow(() ->
-                new NotFoundException("User not found"));
+                new NotFoundException("User bulunamadı."));
     }
 
     @Override

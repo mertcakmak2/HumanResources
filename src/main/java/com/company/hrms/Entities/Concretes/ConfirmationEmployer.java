@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "confirmation_employers")
@@ -16,6 +17,9 @@ public class ConfirmationEmployer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "created_at")
+    private Date createdAt = new Date();
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "register_confirm_token_id")

@@ -28,15 +28,15 @@ public class ConfirmTokenManager implements ConfirmTokenService {
     public RegisterConfirmToken confirmMailToken(String confirmToken) {
 
         RegisterConfirmToken confirmationToken = findByToken(confirmToken)
-                .orElseThrow(() -> new IllegalStateException("token not found"));
+                .orElseThrow(() -> new IllegalStateException("Doğrulama kodu bulunamadı."));
 
         if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("email already confirmed");
+            throw new IllegalStateException("Bu email zaten doğrulanmış.");
         }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
         if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("token expired");
+            throw new IllegalStateException("Hesap doğrulama süresi aşılmıştır.");
         }
 
         confirmationToken.setConfirmedAt(LocalDateTime.now());

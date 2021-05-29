@@ -31,6 +31,6 @@ public class ImageManager implements ImageService {
     @Override
     public String deleteUserImage(int userId) {
         imageDao.deleteUsersByUserId(userId);
-        return "User image successfully deleted userId="+userId;
+        return "Fotoğraf başarıyla silindi userId="+userId;
     }
 }

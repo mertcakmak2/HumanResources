@@ -5,5 +5,5 @@ import org.springframework.stereotype.Component;
 @Component
 public interface MailService {
 
-    void sendConfirmationMail(String email, String token);
+    void sendConfirmationMail(String email, String url ,String token);
 }

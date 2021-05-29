@@ -32,7 +32,7 @@ public class JobSeekerManager implements JobSeekerService {
 
     @Override
     public JobSeeker findJobSeekerById(int id) throws NotFoundException {
-        return jobSeekerDao.findById(id).orElseThrow(() -> new NotFoundException("not found job seeker"));
+        return jobSeekerDao.findById(id).orElseThrow(() -> new NotFoundException("İş arayan bulunamadı."));
     }
 
     @Override

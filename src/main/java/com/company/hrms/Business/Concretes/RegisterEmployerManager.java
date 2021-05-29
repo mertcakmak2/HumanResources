@@ -30,16 +30,19 @@ public class RegisterEmployerManager implements RegisterEmployerService {
         confirmationEmployerDao.save(confirmationEmployer);
 
         // Todo: Send Confirmation Mail
-        // Todo: mailLink => http://localhost:5002/api/register/employer/confirm?token=894b3e96-7a9b-40aa-8a25-b039f74e27c2
+        mailManager.sendConfirmationMail(savedEmployer.getEmail(),
+                "http://localhost:5002/api/register/employer/confirm",
+                registerConfirmToken.getToken()
+        );
 
         return savedEmployer;
     }
 
     @Override
-    public String confirmWithEmail(String token) throws Exception {
+    public String confirmEmployerTokenWithEmail(String token) throws Exception {
 
         RegisterConfirmToken confirmedToken = confirmTokenService.confirmMailToken(token);
-        return confirmedToken.getUser().getEmail()+" has been successfully confirmed with email.";
+        return confirmedToken.getUser().getEmail()+" email aktivasyon işlemi başarılı.";
     }
 
     @Override
@@ -55,6 +58,6 @@ public class RegisterEmployerManager implements RegisterEmployerService {
             userService.confirmUser(confirmedToken.getUser());
             confirmationEmployerDao.save(confirmationEmployer);
         }
-        return confirmedToken.getUser().getEmail()+" has been successfully confirmed from "+ systemUser.getEmail();
+        return confirmedToken.getUser().getEmail()+" kullanıcısı "+ systemUser.getEmail() +" tarafından aktive edildi.";
     }
 }

@@ -39,7 +39,7 @@ public class RegisterController {
 
     @GetMapping(value = "/employer/confirm")
     public String confirmEmployerTokenWithEmail(@RequestParam String token) throws Exception {
-        return registerEmployerService.confirmWithEmail(token);
+        return registerEmployerService.confirmEmployerTokenWithEmail(token);
     }
 
     @GetMapping(value = "/employer/{employerId}/{systemUserId}")
@@ -50,7 +50,7 @@ public class RegisterController {
     @ExceptionHandler(value = {
             IllegalStateException.class,
             EntityExistsException.class,
-            ValidationException.class
+            ValidationException.class,
     })
     public ResponseEntity handleException(Exception e, HttpServletRequest httpServletRequest) {
         return ResponseEntity.status(404).body("Exception Message Found: "+e.getMessage());
