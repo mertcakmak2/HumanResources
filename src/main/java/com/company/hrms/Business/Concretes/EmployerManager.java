@@ -1,6 +1,8 @@
 package com.company.hrms.Business.Concretes;
 
 import com.company.hrms.Business.Abstracts.EmployerService;
+import com.company.hrms.Core.Utilities.Result.DataResult;
+import com.company.hrms.Core.Utilities.Result.SuccessDataResult;
 import com.company.hrms.Core.Utilities.Util;
 import com.company.hrms.DataAccess.Abstracts.EmployerDao;
 import com.company.hrms.Entities.Concretes.Employer;
@@ -32,8 +34,8 @@ public class EmployerManager implements EmployerService {
     }
 
     @Override
-    public List<Employer> findAllEmployers() {
-        return employerDao.findAll();
+    public DataResult<List<Employer>> findAllEmployers() {
+        return new SuccessDataResult<List<Employer>>(employerDao.findAll(),"Tüm iş verenler listelendi");
     }
 
     @Override

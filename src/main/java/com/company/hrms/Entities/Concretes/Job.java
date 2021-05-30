@@ -16,8 +16,6 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String companyName;
-
     @ManyToOne
     @JoinColumn(name = "job_position_id")
     private JobPosition jobPosition;
@@ -40,5 +38,5 @@ public class Job {
 
     private LocalDate announceDate = LocalDate.now();
 
-    private Boolean isActive;
+    private Boolean isActive = true;
 }

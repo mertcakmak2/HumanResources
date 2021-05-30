@@ -16,7 +16,7 @@ public interface JobDao extends JpaRepository<Job, Integer> {
 
     List<Job> findByIsActive(boolean isActive);
     List<Job> findByIsActive(boolean isActive, Sort sort);
-    List<Job> findByIsActiveAndCompanyName(boolean isActive, String companyName);
+    List<Job> findByIsActiveAndEmployer_CompanyName(boolean isActive, String companyName);
 
     @Transactional
     @Modifying(clearAutomatically = true)

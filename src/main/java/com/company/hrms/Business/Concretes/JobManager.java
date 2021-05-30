@@ -7,7 +7,6 @@ import com.company.hrms.Core.Utilities.Result.SuccessDataResult;
 import com.company.hrms.Core.Utilities.Result.SuccessResult;
 import com.company.hrms.DataAccess.Abstracts.JobDao;
 import com.company.hrms.Entities.Concretes.Job;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ public class JobManager implements JobService {
     @Override
     public DataResult<List<Job>> findAllActiveJobByCompanyName(String companyName) {
         return new SuccessDataResult<List<Job>>(
-                jobDao.findByIsActiveAndCompanyName(true, companyName),
+                jobDao.findByIsActiveAndEmployer_CompanyName(true, companyName),
                 "Aktif "+companyName+" iş ilanları listelendi");
     }
 
@@ -63,5 +62,8 @@ public class JobManager implements JobService {
         if(job.getJobDescription() == null) throw new ValidationException("İş tanımı alanı boş bırakılamaz.");
         if(job.getCity() == null)throw new ValidationException("Şehir alanı boş bırakılamaz.");
         if(job.getPositionCount() == 0)throw new ValidationException("Pozisyon sayısı boş bırakılamaz.");
+        if(job.getMinSalary() != 0 && job.getMaxSalary() != 0 && job.getMinSalary() > job.getMaxSalary()){
+            throw new ValidationException("Minimum maaş miktarı maximum maaş miktarından büyük olamaz.");
+        }
     }
 }

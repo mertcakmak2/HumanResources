@@ -1,6 +1,7 @@
 package com.company.hrms.Api;
 
 import com.company.hrms.Business.Abstracts.EmployerService;
+import com.company.hrms.Core.Utilities.Result.DataResult;
 import com.company.hrms.Entities.Concretes.Employer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ public class EmployerController {
     private final EmployerService employerService;
 
     @GetMapping(value = "")
-    public List<Employer> findAllEmployers(){
+    public DataResult<List<Employer>> findAllEmployers(){
         return employerService.findAllEmployers();
     }
 }
