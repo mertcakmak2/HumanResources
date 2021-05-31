@@ -53,12 +53,7 @@ public class JobSeekerManager implements JobSeekerService {
         }
         // Email Regex
         if (!Util.checkUserEmail(jobSeeker.getEmail())) {
-            throw new IllegalStateException("Lütfen geçerli bir email adresi giriniz");
-        }
-        // Field controls
-        if (jobSeeker.getFirstName().isEmpty() || jobSeeker.getLastName().isEmpty() || jobSeeker.getNationalityId() == null
-                || jobSeeker.getBirthDate() == null || jobSeeker.getPassword() == null) {
-            throw new ValidationException("Tüm alanları doldurduğunuzdan emin olunuz.");
+            throw new ValidationException("Lütfen geçerli bir email adresi giriniz");
         }
         // Email and Nationality Number exist record control
         if (jobSeekerDao.findByNationalityIdOrEmail(jobSeeker.getNationalityId(), jobSeeker.getEmail()) != null) {

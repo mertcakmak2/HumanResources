@@ -58,10 +58,6 @@ public class JobManager implements JobService {
     }
 
     public void validateJob(Job job) throws Exception {
-        if(job.getJobPosition() == null) throw new ValidationException("Pozisyon alanı boş bırakılamaz.");
-        if(job.getJobDescription() == null) throw new ValidationException("İş tanımı alanı boş bırakılamaz.");
-        if(job.getCity() == null)throw new ValidationException("Şehir alanı boş bırakılamaz.");
-        if(job.getPositionCount() == 0)throw new ValidationException("Pozisyon sayısı boş bırakılamaz.");
         if(job.getMinSalary() != 0 && job.getMaxSalary() != 0 && job.getMinSalary() > job.getMaxSalary()){
             throw new ValidationException("Minimum maaş miktarı maximum maaş miktarından büyük olamaz.");
         }

@@ -1,10 +1,13 @@
 package com.company.hrms.Entities.Concretes;
 
+import com.company.hrms.Core.Entitites.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -15,15 +18,25 @@ import java.util.Date;
 @NoArgsConstructor
 public class Employer extends User {
 
+    @NotBlank
+    @NotNull
     private String firstName;
 
+    @NotBlank
+    @NotNull
     private String lastName;
 
+    @NotBlank
+    @NotNull
     private String companyName;
 
+    @NotBlank
+    @NotNull
     private String companyWebSite;
 
     @Column(unique = true)
+    @NotBlank
+    @NotNull
     private String mobilePhone;
 
     @Column(name = "created_at")

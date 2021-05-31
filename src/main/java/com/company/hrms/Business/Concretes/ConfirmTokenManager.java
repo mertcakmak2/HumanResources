@@ -3,7 +3,7 @@ package com.company.hrms.Business.Concretes;
 import com.company.hrms.Business.Abstracts.ConfirmTokenService;
 import com.company.hrms.DataAccess.Abstracts.RegisterConfirmTokenDao;
 import com.company.hrms.Entities.Concretes.RegisterConfirmToken;
-import com.company.hrms.Entities.Concretes.User;
+import com.company.hrms.Core.Entitites.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

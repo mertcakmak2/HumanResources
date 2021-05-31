@@ -1,5 +1,6 @@
 package com.company.hrms.Entities.Concretes;
 
+import com.company.hrms.Core.Entitites.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.company.hrms.Business.Abstracts;
 
-import com.company.hrms.Entities.Concretes.User;
+import com.company.hrms.Core.Entitites.User;
 import javassist.NotFoundException;
 
 public interface UserService {

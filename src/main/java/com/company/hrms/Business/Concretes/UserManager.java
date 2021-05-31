@@ -1,13 +1,11 @@
 package com.company.hrms.Business.Concretes;
 
 import com.company.hrms.Business.Abstracts.UserService;
-import com.company.hrms.DataAccess.Abstracts.UserDao;
-import com.company.hrms.Entities.Concretes.User;
+import com.company.hrms.Core.DataAccess.UserDao;
+import com.company.hrms.Core.Entitites.User;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor

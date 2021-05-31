@@ -1,6 +1,6 @@
-package com.company.hrms.DataAccess.Abstracts;
+package com.company.hrms.Core.DataAccess;
 
-import com.company.hrms.Entities.Concretes.User;
+import com.company.hrms.Core.Entitites.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

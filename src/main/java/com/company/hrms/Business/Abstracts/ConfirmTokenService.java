@@ -1,7 +1,7 @@
 package com.company.hrms.Business.Abstracts;
 
 import com.company.hrms.Entities.Concretes.RegisterConfirmToken;
-import com.company.hrms.Entities.Concretes.User;
+import com.company.hrms.Core.Entitites.User;
 
 import java.util.Optional;
 

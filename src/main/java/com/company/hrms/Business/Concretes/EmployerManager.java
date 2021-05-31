@@ -45,11 +45,6 @@ public class EmployerManager implements EmployerService {
     }
 
     public void validateEmployer(Employer employer) throws Exception {
-        // Field controls
-        if (employer.getEmail() == null || employer.getFirstName() == null || employer.getLastName() == null ||
-            employer.getCompanyName() == null || employer.getCompanyWebSite() == null || employer.getMobilePhone() == null) {
-            throw new ValidationException("Tüm alanları doldurduğunuzdan emin olunuz");
-        }
         // Email Regex
         if (!Util.checkUserEmail(employer.getEmail()))
             throw new ValidationException("Lütfen geçerli bir email adresi giriniz");
