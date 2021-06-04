@@ -1,10 +1,14 @@
 package com.company.hrms.Entities.Concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "resumes")
@@ -17,16 +21,43 @@ public class Resume {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    // TODO // ManyToOne private JobSeeker jobSeeker
+    @ManyToOne
+    @JoinColumn(name = "job_seeker_id")
+    @NotNull
+    private JobSeeker jobSeeker;
 
-    // TODO // OneToMany List<School> schools
+    @OneToOne
+    @JoinColumn(name = "profile_picture_id")
+    private ProfilePicture profilePicture;
 
-    // TODO // OneToMany List<JobExpreince> expreinces
+    private String github;
 
-    // TODO // OneToMany List<Language> languages
+    private String linkedin;
 
-    // TODO // OneToMany List<Skill> skills
+    @OneToMany(mappedBy = "resume")
+    @JsonIgnore
+    private List<School> schools;
+
+    @OneToMany(mappedBy = "resume")
+    @JsonIgnore
+    private List<JobExperience> jobExperiences;
+
+    @OneToMany(mappedBy = "resume")
+    @JsonIgnore
+    private List<Language> languages;
+
+    @OneToMany(mappedBy = "resume")
+    @JsonIgnore
+    private List<Skill> skills;
+
+    @Column(name = "created_at")
+    private Date createdAt = new Date();
 
     private boolean isActive = true;
 
+    public Resume(@NotNull JobSeeker jobSeeker, String github, String linkedin) {
+        this.jobSeeker = jobSeeker;
+        this.github = github;
+        this.linkedin = linkedin;
+    }
 }

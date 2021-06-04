@@ -1,5 +1,6 @@
 package com.company.hrms.Entities.Concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +32,12 @@ public class JobExperience {
     private Date endDate;
     private boolean workingStatu;
 
-    // TODO // ManyToOne private Resume resume
+    @ManyToOne
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
+
+    @Column(name = "created_at")
+    private Date createdAt = new Date();
 
     private boolean isActive = true;
 }

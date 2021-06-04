@@ -1,5 +1,6 @@
 package com.company.hrms.Entities.Concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 @Table(name = "languages")
@@ -28,7 +30,12 @@ public class Language {
     @Range(min = 1, max = 5)
     private int languageLevel;
 
-    // TODO // ManyToOne private Resume resume
+    @ManyToOne
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
+
+    @Column(name = "created_at")
+    private Date createdAt = new Date();
 
     private boolean isActive = true;
 
