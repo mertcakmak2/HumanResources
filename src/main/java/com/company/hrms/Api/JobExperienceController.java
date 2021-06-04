@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,6 +25,11 @@ public class JobExperienceController {
     @PostMapping(value = "")
     public DataResult<JobExperience> saveJobExperience(@Valid @RequestBody JobExperience jobExperience){
         return jobExperienceService.saveJobExperience(jobExperience);
+    }
+
+    @GetMapping(value = "/{resumeId}")
+    public DataResult<List<JobExperience>> findAllByBeginDate(@PathVariable int resumeId){
+        return jobExperienceService.findByResume_Id(resumeId);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

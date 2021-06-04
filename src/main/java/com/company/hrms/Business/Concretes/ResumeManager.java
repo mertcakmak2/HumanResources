@@ -53,5 +53,4 @@ public class ResumeManager implements ResumeService {
         return new SuccessDataResult<Resume>(resumeDao.save(resume),"Profil fotoğrafı cvye kaydedildi.");
     }
 
-
 }

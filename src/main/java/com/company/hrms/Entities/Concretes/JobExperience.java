@@ -28,7 +28,7 @@ public class JobExperience {
     private String position;
     @NotNull
     private Date beginDate;
-    @NotNull
+
     private Date endDate;
     private boolean workingStatu;
 
