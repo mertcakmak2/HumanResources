@@ -20,12 +20,12 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CloudinaryAdapter implements ProfilePictureService {
 
-    private final Cloudinary cloudinaryConfig;
+    private final Cloudinary cloudinary;
 
     @Override
     public String saveProfilePicture(MultipartFile picture) {
         try {
-            Map uploadResult = cloudinaryConfig.uploader().upload(picture.getBytes(), ObjectUtils.emptyMap());
+            Map uploadResult = cloudinary.uploader().upload(picture.getBytes(), ObjectUtils.emptyMap());
             return  uploadResult.get("url").toString();
         } catch (Exception e) {
             throw new RuntimeException(e);

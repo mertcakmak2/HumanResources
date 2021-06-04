@@ -34,6 +34,8 @@ public class Resume {
 
     private String linkedin;
 
+    private String coverLetter;
+
     @OneToMany(mappedBy = "resume")
     @JsonIgnore
     private List<School> schools;

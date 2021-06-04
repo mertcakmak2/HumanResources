@@ -39,7 +39,7 @@ public class ResumeController {
     }
 
     @PostMapping(value = "/profile-picture")
-    public Result setResumeProfilPicture(@RequestParam("file") MultipartFile file, @RequestParam int resumeId) {
+    public Result setResumeProfilePicture(@RequestParam("file") MultipartFile file, @RequestParam int resumeId) {
         return resumeService.setResumeProfilPicture(file, resumeId);
     }
 
