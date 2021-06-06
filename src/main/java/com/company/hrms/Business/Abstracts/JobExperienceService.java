@@ -9,5 +9,5 @@ public interface JobExperienceService {
 
     DataResult<JobExperience> saveJobExperience(JobExperience jobExperience);
 
-    DataResult<List<JobExperience>> findByResume_Id(int resumeId);
+    DataResult<List<JobExperience>> findAllJobExperiencesByResume_Id(int resumeId);
 }

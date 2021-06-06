@@ -23,6 +23,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/register")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class RegisterController {
 
     private final RegisterJobSeekerService registerJobSeekerService;

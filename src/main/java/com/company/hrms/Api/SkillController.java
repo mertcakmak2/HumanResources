@@ -18,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/skill")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class SkillController {
 
     private final SkillService skillService;

@@ -24,7 +24,7 @@ public class JobExperienceManager implements JobExperienceService {
     }
 
     @Override
-    public DataResult<List<JobExperience>> findByResume_Id(int resumeId) {
+    public DataResult<List<JobExperience>> findAllJobExperiencesByResume_Id(int resumeId) {
         return new SuccessDataResult<List<JobExperience>>(
                 jobExperienceDao.findByResume_Id(resumeId,Sort.by(Sort.Direction.DESC,"endDate")));
     }

@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/job-position")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class JobPositionController {
 
     private final JobPositionService jobPositionService;

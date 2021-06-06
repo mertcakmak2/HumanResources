@@ -18,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/job-experience")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class JobExperienceController {
 
     private final JobExperienceService jobExperienceService;
@@ -28,8 +29,8 @@ public class JobExperienceController {
     }
 
     @GetMapping(value = "/{resumeId}")
-    public DataResult<List<JobExperience>> findAllByBeginDate(@PathVariable int resumeId){
-        return jobExperienceService.findByResume_Id(resumeId);
+    public DataResult<List<JobExperience>> findAllJobExperiencesByResume_Id(@PathVariable int resumeId){
+        return jobExperienceService.findAllJobExperiencesByResume_Id(resumeId);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

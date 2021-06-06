@@ -17,6 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/school")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class SchoolController {
 
     private final SchoolService schoolService;

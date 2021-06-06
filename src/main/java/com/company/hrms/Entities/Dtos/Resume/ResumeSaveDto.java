@@ -1,4 +1,4 @@
-package com.company.hrms.Entities.Dtos;
+package com.company.hrms.Entities.Dtos.Resume;
 
 import com.company.hrms.Entities.Concretes.JobSeeker;
 import lombok.AllArgsConstructor;
@@ -17,6 +17,6 @@ public class ResumeSaveDto {
     private String profilePic;
     private String github;
     private String linkedin;
-
+    private String coverLetter;
 
 }

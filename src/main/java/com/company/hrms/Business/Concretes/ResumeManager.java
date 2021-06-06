@@ -9,7 +9,7 @@ import com.company.hrms.Core.Utilities.Result.SuccessResult;
 import com.company.hrms.DataAccess.Abstracts.*;
 import com.company.hrms.Entities.Concretes.ProfilePicture;
 import com.company.hrms.Entities.Concretes.Resume;
-import com.company.hrms.Entities.Dtos.ResumeSaveDto;
+import com.company.hrms.Entities.Dtos.Resume.ResumeSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

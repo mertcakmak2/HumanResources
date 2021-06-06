@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "job_positions")
@@ -23,10 +24,9 @@ public class JobPosition implements Serializable {
     @Column(unique = true)
     private String positionName;
 
-   /* @ManyToOne
-    @JoinColumn(name = "system_user_id")
+    @OneToMany(mappedBy = "jobPosition")
     @JsonIgnore
-    private SystemUser systemUser;*/
+    private List<Job> jobs;
 
     @Column(name = "created_at")
     private Date createdAt = new Date();
