@@ -22,6 +22,10 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank
+    @NotNull
+    private String jobDescription;
+
     @ManyToOne
     @JoinColumn(name = "job_position_id")
     @NotNull
