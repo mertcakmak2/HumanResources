@@ -2,6 +2,8 @@ package com.company.hrms.Business.Concretes;
 
 import com.company.hrms.Business.Abstracts.JobSeekerService;
 import com.company.hrms.Core.IdentityVerificationService;
+import com.company.hrms.Core.Utilities.Result.DataResult;
+import com.company.hrms.Core.Utilities.Result.SuccessDataResult;
 import com.company.hrms.Core.Utilities.Util;
 import com.company.hrms.DataAccess.Abstracts.JobSeekerDao;
 import com.company.hrms.Entities.Concretes.JobSeeker;
@@ -36,8 +38,8 @@ public class JobSeekerManager implements JobSeekerService {
     }
 
     @Override
-    public List<JobSeeker> findAllJobSeekers() {
-        return jobSeekerDao.findAll();
+    public DataResult<List<JobSeeker>> findAllJobSeekers() {
+        return new SuccessDataResult<List<JobSeeker>>(jobSeekerDao.findAll(), "İş Arayanlar Listelendi");
     }
 
     @Override

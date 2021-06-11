@@ -22,6 +22,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/job")
 @RequiredArgsConstructor
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class JobController {
 
     private final JobService jobService;

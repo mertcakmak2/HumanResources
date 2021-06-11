@@ -1,6 +1,7 @@
 package com.company.hrms.Api;
 
 import com.company.hrms.Business.Abstracts.JobPositionService;
+import com.company.hrms.Core.Utilities.Result.DataResult;
 import com.company.hrms.Entities.Concretes.JobPosition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,12 @@ public class JobPositionController {
     private final JobPositionService jobPositionService;
 
     @PostMapping(value = "")
-    public JobPosition saveJobPosition(@RequestBody JobPosition jobPosition) {
+    public DataResult<JobPosition> saveJobPosition(@RequestBody JobPosition jobPosition) {
         return jobPositionService.saveJobPosition(jobPosition);
     }
 
     @GetMapping(value = "")
-    public List<JobPosition> findAllJobPositions() {
+    public DataResult<List<JobPosition>> findAllJobPositions() {
         return jobPositionService.findAllJobPositions();
     }
 

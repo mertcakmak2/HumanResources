@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
@@ -31,13 +32,24 @@ public class Job {
     @NotNull
     private Employer employer;
 
-    @NotBlank
+    @ManyToOne
+    @JoinColumn(name = "job_type_id")
     @NotNull
-    private String jobDescription;
+    private JobType jobType;
 
-    @NotBlank
+    @ManyToOne
+    @JoinColumn(name = "working_concept_id")
     @NotNull
-    private String city;
+    private WorkingConcept workingConcept;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    @NotNull
+    private City city;
+
+    @ManyToOne
+    @JoinColumn(name = "confirmer_system_user_id")
+    private SystemUser confirmerSystemUser;
 
     private int minSalary;
 
