@@ -5,7 +5,9 @@ import com.company.hrms.Core.Utilities.Result.DataResult;
 import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
 import com.company.hrms.Core.Utilities.Result.ErrorResult;
 import com.company.hrms.Core.Utilities.Result.Result;
+import com.company.hrms.DataAccess.Abstracts.JobDao;
 import com.company.hrms.Entities.Concretes.Job;
+import com.company.hrms.Entities.Dtos.Job.JobActiveAnnouncesDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -28,18 +30,18 @@ public class JobController {
 
     private final JobService jobService;
 
-    @GetMapping(value = "")
-    public DataResult<List<Job>> findAllActiveJobs() {
+    @GetMapping(value = "/findAllActiveJobs")
+    public DataResult<List<JobActiveAnnouncesDto>> findAllActiveJobs() {
         return jobService.findAllActiveJobs();
     }
 
     @GetMapping(value = "/findAllActiveJobsBySortingDate")
-    public DataResult<List<Job>> findAllActiveJobsBySortingDate() {
+    public DataResult<List<JobActiveAnnouncesDto>> findAllActiveJobsBySortingDate() {
         return jobService.findAllActiveJobsBySortingDate();
     }
 
     @GetMapping(value = "/findAllActiveJobByCompanyName")
-    public DataResult<List<Job>> findAllActiveJobByCompanyName(@RequestParam String companyName) {
+    public DataResult<List<JobActiveAnnouncesDto>> findAllActiveJobByCompanyName(@RequestParam String companyName) {
         return jobService.findAllActiveJobByCompanyName(companyName);
     }
 

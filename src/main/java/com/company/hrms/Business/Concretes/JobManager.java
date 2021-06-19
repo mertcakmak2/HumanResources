@@ -9,9 +9,11 @@ import com.company.hrms.Core.Utilities.Result.SuccessResult;
 import com.company.hrms.DataAccess.Abstracts.JobDao;
 import com.company.hrms.Entities.Concretes.Job;
 import com.company.hrms.Entities.Concretes.SystemUser;
+import com.company.hrms.Entities.Dtos.Job.JobActiveAnnouncesDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.EntityNotFoundException;
 import javax.xml.bind.ValidationException;
@@ -25,23 +27,24 @@ public class JobManager implements JobService {
     private final SystemUserService systemUserService;
 
     @Override
-    public DataResult<List<Job>> findAllActiveJobs() {
-        return new SuccessDataResult<List<Job>>(
-                jobDao.findByIsActive(true),
+    public DataResult<List<JobActiveAnnouncesDto>> findAllActiveJobs() {
+        return new SuccessDataResult<List<JobActiveAnnouncesDto>>(
+                jobDao.findAllActiveJobAnnouncesDetails(),
                 "Aktif iş ilanları listelendi");
     }
 
     @Override
-    public DataResult<List<Job>> findAllActiveJobsBySortingDate() {
-        return new SuccessDataResult<List<Job>>(
-                jobDao.findByIsActive(true, Sort.by(Sort.Direction.ASC,"announceDate")),
+    public DataResult<List<JobActiveAnnouncesDto>> findAllActiveJobsBySortingDate() {
+        return new SuccessDataResult<List<JobActiveAnnouncesDto>>(
+                jobDao.findAllActiveJobAnnouncesOrderByAnnounceDateDetails(
+                        Sort.by(Sort.Direction.ASC,"announceDate")),
                 "Aktif iş ilanları tarihe göre listelendi");
     }
 
     @Override
-    public DataResult<List<Job>> findAllActiveJobByCompanyName(String companyName) {
-        return new SuccessDataResult<List<Job>>(
-                jobDao.findByIsActiveAndEmployer_CompanyName(true, companyName),
+    public DataResult<List<JobActiveAnnouncesDto>> findAllActiveJobByCompanyName(String companyName) {
+        return new SuccessDataResult<List<JobActiveAnnouncesDto>>(
+                jobDao.findByIsActiveAndEmployer_CompanyName(companyName),
                 "Aktif "+companyName+" iş ilanları listelendi");
     }
 

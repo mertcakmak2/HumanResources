@@ -1,6 +1,7 @@
 package com.company.hrms.Entities.Concretes;
 
 import com.company.hrms.Core.Entitites.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "employers")
@@ -38,6 +40,10 @@ public class Employer extends User {
     @NotBlank
     @NotNull
     private String mobilePhone;
+
+    @OneToMany(mappedBy = "employer")
+    @JsonIgnore
+    private List<Job> jobs;
 
     @Column(name = "created_at")
     private Date createdAt = new Date();
