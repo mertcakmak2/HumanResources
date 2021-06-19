@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
@@ -52,8 +53,14 @@ public class JobController {
         return jobService.closeJobAnnounce(id);
     }
 
+    @GetMapping(value = "/activateJobAnnounceBySystemUser/{jobId}/{systemUserId}")
+    public DataResult<Job> activateJobAnnounceBySystemUser(@PathVariable int jobId, @PathVariable int systemUserId){
+        return jobService.activateJobAnnounceBySystemUser(jobId, systemUserId);
+    }
+
     @ExceptionHandler(value = {
-            ValidationException.class
+            ValidationException.class,
+            EntityNotFoundException.class
     })
     public Result handleException(Exception e, HttpServletRequest httpServletRequest) {
         return new ErrorResult("Exception Message Found: "+e.getMessage());

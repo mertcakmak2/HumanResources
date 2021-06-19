@@ -2,14 +2,11 @@ package com.company.hrms.Entities.Concretes;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
@@ -67,5 +64,5 @@ public class Job {
 
     private LocalDate announceDate = LocalDate.now();
 
-    private Boolean isActive = true;
+    private Boolean isActive = false;
 }

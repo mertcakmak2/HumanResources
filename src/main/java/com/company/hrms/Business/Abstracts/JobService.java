@@ -14,5 +14,6 @@ public interface JobService {
     DataResult<List<Job>> findAllActiveJobByCompanyName(String companyName);
     DataResult<Job> announceJob(Job job) throws Exception;
     Result closeJobAnnounce(int id);
+    DataResult<Job> activateJobAnnounceBySystemUser(int jobId, int systemUserId);
 
 }
