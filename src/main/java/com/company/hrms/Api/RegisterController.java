@@ -58,6 +58,7 @@ public class RegisterController {
     @ExceptionHandler(value = {
             EntityExistsException.class,
             ValidationException.class,
+            IllegalStateException.class
     })
     public ResponseEntity handleException(Exception e, HttpServletRequest httpServletRequest) {
         return ResponseEntity.status(400).body("Exception Message Found: "+e.getMessage());
