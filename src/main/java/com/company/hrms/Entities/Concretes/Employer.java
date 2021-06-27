@@ -43,7 +43,7 @@ public class Employer extends User {
 
     @OneToMany(mappedBy = "employer")
     @JsonIgnore
-    private List<Job> jobs;
+    private List<JobAnnounce> jobAnnounces;
 
     @Column(name = "created_at")
     private Date createdAt = new Date();

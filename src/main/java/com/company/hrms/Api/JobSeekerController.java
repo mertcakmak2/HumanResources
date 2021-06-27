@@ -2,12 +2,12 @@ package com.company.hrms.Api;
 
 import com.company.hrms.Business.Abstracts.JobSeekerService;
 import com.company.hrms.Core.Utilities.Result.DataResult;
+import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.JobSeeker;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,6 +22,11 @@ public class JobSeekerController {
     @GetMapping(value = "")
     public DataResult<List<JobSeeker>> findAllJobSeekers(){
         return jobSeekerService.findAllJobSeekers();
+    }
+
+    @PostMapping(value = "/profile-picture")
+    public Result setResumeProfilePicture(@RequestParam("file") MultipartFile file, @RequestParam int resumeId) throws NotFoundException {
+        return jobSeekerService.saveJobSeekerProfilePic(file, resumeId);
     }
 
 

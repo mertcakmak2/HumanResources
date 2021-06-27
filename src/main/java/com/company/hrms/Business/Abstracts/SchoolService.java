@@ -9,4 +9,5 @@ import java.util.List;
 public interface SchoolService {
 
     DataResult<School> saveSchool(School school);
+    DataResult<School> updateSchool(School school);
 }

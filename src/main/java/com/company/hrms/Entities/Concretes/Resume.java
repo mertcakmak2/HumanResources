@@ -26,10 +26,6 @@ public class Resume {
     @NotNull
     private JobSeeker jobSeeker;
 
-    @OneToOne
-    @JoinColumn(name = "profile_picture_id")
-    private ProfilePicture profilePicture;
-
     private String github;
 
     private String linkedin;
@@ -52,14 +48,15 @@ public class Resume {
     @JsonIgnore
     private List<Skill> skills;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private Date createdAt = new Date();
 
     private boolean isActive = true;
 
-    public Resume(@NotNull JobSeeker jobSeeker, String github, String linkedin) {
+    public Resume(@NotNull JobSeeker jobSeeker, String github, String linkedin, String coverLetter) {
         this.jobSeeker = jobSeeker;
         this.github = github;
         this.linkedin = linkedin;
+        this.coverLetter = coverLetter;
     }
 }

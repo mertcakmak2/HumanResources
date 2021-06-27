@@ -36,7 +36,7 @@ public class JobExperience {
     @JoinColumn(name = "resume_id")
     private Resume resume;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private Date createdAt = new Date();
 
     private boolean isActive = true;

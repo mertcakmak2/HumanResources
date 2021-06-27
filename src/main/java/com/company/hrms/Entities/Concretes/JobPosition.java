@@ -31,7 +31,7 @@ public class JobPosition implements Serializable {
 
     @OneToMany(mappedBy = "jobPosition")
     @JsonIgnore
-    private List<Job> jobs;
+    private List<JobAnnounce> jobAnnounces;
 
     @Column(name = "created_at")
     private Date createdAt = new Date();

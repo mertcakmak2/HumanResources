@@ -1,44 +1,35 @@
 package com.company.hrms.Entities.Concretes;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table(name = "schools")
-@Data
+@Table(name = "favourite_job_announces")
 @NoArgsConstructor
 @AllArgsConstructor
-public class School {
+@Data
+public class FavouriteJobAnnounce {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @ManyToOne
+    @JoinColumn(name = "job_announce_id")
     @NotNull
-    @NotBlank
-    private String schoolName;
-    @NotNull
-    @NotBlank
-    private String department;
-    @NotNull
-    private Date beginDate;
-    @NotNull
-    private Date graduationDate;
-    private boolean graduate;
+    private JobAnnounce jobAnnounce;
 
     @ManyToOne
-    @JoinColumn(name = "resume_id")
+    @JoinColumn(name = "job_seeker_id")
     @NotNull
-    private Resume resume;
+    private JobSeeker jobSeeker;
 
-    @Column(name = "created_at", updatable = false)
+    @Column(updatable = false)
     private Date createdAt = new Date();
 
     private boolean isActive = true;

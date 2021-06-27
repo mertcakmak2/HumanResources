@@ -35,7 +35,7 @@ public class User {
 
     private Boolean isConfirmed = false;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private Date createdAt = new Date();
 
     //Soft Delete Field

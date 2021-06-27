@@ -2,15 +2,19 @@ package com.company.hrms.Business.Concretes;
 
 import com.company.hrms.Business.Abstracts.JobSeekerService;
 import com.company.hrms.Core.IdentityVerificationService;
+import com.company.hrms.Core.ProfilePictureService;
 import com.company.hrms.Core.Utilities.Result.DataResult;
 import com.company.hrms.Core.Utilities.Result.SuccessDataResult;
 import com.company.hrms.Core.Utilities.Util;
 import com.company.hrms.DataAccess.Abstracts.JobSeekerDao;
+import com.company.hrms.DataAccess.Abstracts.ProfilePictureDao;
 import com.company.hrms.Entities.Concretes.JobSeeker;
+import com.company.hrms.Entities.Concretes.ProfilePicture;
 import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityExistsException;
 import javax.xml.bind.ValidationException;
@@ -23,6 +27,9 @@ public class JobSeekerManager implements JobSeekerService {
     private final JobSeekerDao jobSeekerDao;
     @Qualifier(value = "MernisIdendityAdapter")
     private final IdentityVerificationService mernisVerificationAdapter;
+    @Qualifier(value = "CloudinaryAdapter")
+    private final ProfilePictureService cloudinaryAdapter;
+    private final ProfilePictureDao profilePictureDao;
 
     @Override
     public JobSeeker saveJobSeeker(JobSeeker jobSeeker) throws Exception {
@@ -46,6 +53,17 @@ public class JobSeekerManager implements JobSeekerService {
     public JobSeeker deleteJobSeeker(JobSeeker jobSeeker) {
         jobSeekerDao.delete(jobSeeker);
         return jobSeeker;
+    }
+
+    @Override
+    public DataResult<JobSeeker> saveJobSeekerProfilePic(MultipartFile picture, int jobSeekerId) throws NotFoundException {
+        String profilePicturePath = cloudinaryAdapter.saveProfilePicture(picture);
+        ProfilePicture savedProfilePicture = profilePictureDao.save(new ProfilePicture(profilePicturePath));
+
+        JobSeeker jobSeeker = findJobSeekerById(jobSeekerId);
+        jobSeeker.setProfilePicture(savedProfilePicture);
+
+        return new SuccessDataResult<JobSeeker>(jobSeekerDao.save(jobSeeker),"Profil resmi eklendi.");
     }
 
     public void validateJobSeeker(JobSeeker jobSeeker) throws Exception {

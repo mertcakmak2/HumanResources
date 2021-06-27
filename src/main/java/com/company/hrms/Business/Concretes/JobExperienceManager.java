@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -20,13 +21,25 @@ public class JobExperienceManager implements JobExperienceService {
     @Override
     public DataResult<JobExperience> saveJobExperience(JobExperience jobExperience) {
         return new SuccessDataResult<JobExperience>(jobExperienceDao.save(jobExperience),
-                "İş tecrübesi eklendi.");
+                "İş tecrübeleri eklendi.");
+    }
+
+    @Override
+    public DataResult<JobExperience> updateJobExperience(JobExperience jobExperience) {
+        JobExperience existJobExperience = findJobExperienceById(jobExperience.getId());
+
+        existJobExperience = jobExperience;
+        return new SuccessDataResult<JobExperience>(jobExperienceDao.save(existJobExperience), "Deneyim güncellendi.");
     }
 
     @Override
     public DataResult<List<JobExperience>> findAllJobExperiencesByResume_Id(int resumeId) {
         return new SuccessDataResult<List<JobExperience>>(
                 jobExperienceDao.findByResume_Id(resumeId,Sort.by(Sort.Direction.DESC,"endDate")));
+    }
+
+    public JobExperience findJobExperienceById(int id){
+        return jobExperienceDao.findById(id).orElseThrow(() -> new EntityNotFoundException("Deneyim bulunamadı."));
     }
 
 }

@@ -22,7 +22,7 @@ public class RegisterConfirmToken {
     @Column(nullable = false)
     private String token;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(nullable = false)

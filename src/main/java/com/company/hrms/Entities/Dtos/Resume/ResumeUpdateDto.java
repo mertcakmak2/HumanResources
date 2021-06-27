@@ -1,22 +1,22 @@
 package com.company.hrms.Entities.Dtos.Resume;
 
-import com.company.hrms.Entities.Concretes.*;
+import com.company.hrms.Entities.Concretes.JobSeeker;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResumeSaveDto {
+public class ResumeUpdateDto {
 
     @NotNull
-    private JobSeeker jobSeeker;
+    @NotBlank
+    private int id;
     private String github;
     private String linkedin;
     private String coverLetter;
-
 }

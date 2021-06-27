@@ -21,7 +21,7 @@ public class ProfilePicture {
 
     private String picturePath;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private Date createdAt = new Date();
 
     private boolean isActive = true;

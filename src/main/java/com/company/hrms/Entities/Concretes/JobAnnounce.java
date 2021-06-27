@@ -8,12 +8,13 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
-@Table(name = "jobs")
+@Table(name = "job_announces")
 @Data
 @NoArgsConstructor
-public class Job {
+public class JobAnnounce {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,6 +63,7 @@ public class Job {
 
     private LocalDate lastDateOfAppeal;
 
+    @Column(updatable = false)
     private LocalDate announceDate = LocalDate.now();
 
     private Boolean isActive = false;

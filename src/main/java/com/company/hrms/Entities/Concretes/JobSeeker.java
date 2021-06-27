@@ -37,6 +37,10 @@ public class JobSeeker extends User {
     @NotNull
     private String mobilePhone;
 
+    @OneToOne
+    @JoinColumn(name = "profile_picture_id")
+    private ProfilePicture profilePicture;
+
     @JsonFormat(pattern="yyyy-MM-dd")
     @NotNull
     private Date birthDate;

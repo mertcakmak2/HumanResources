@@ -18,7 +18,7 @@ public class ConfirmationEmployer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private Date createdAt = new Date();
 
     @ManyToOne

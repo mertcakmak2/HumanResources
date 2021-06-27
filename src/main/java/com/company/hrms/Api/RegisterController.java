@@ -28,7 +28,6 @@ public class RegisterController {
 
     private final RegisterJobSeekerService registerJobSeekerService;
     private final RegisterEmployerService registerEmployerService;
-    private final ConfirmTokenService confirmTokenService;
 
     @PostMapping(value = "/job-seeker")
     public JobSeeker registerJobSeeker(@Valid @RequestBody JobSeeker jobSeeker) throws Exception {

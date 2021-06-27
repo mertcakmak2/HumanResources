@@ -1,11 +1,11 @@
 package com.company.hrms.Api;
 
-import com.company.hrms.Business.Abstracts.JobExperienceService;
+import com.company.hrms.Business.Abstracts.FavouriteJobAnnounceService;
 import com.company.hrms.Core.Utilities.Result.DataResult;
 import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
 import com.company.hrms.Core.Utilities.Result.ErrorResult;
 import com.company.hrms.Core.Utilities.Result.Result;
-import com.company.hrms.Entities.Concretes.JobExperience;
+import com.company.hrms.Entities.Concretes.FavouriteJobAnnounce;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -14,32 +14,35 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/job-experience")
+@RequestMapping("/api/favourite-job-anounce")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*",allowedHeaders = "*")
-public class JobExperienceController {
+public class FavouriteJobAnnounceController {
 
-    private final JobExperienceService jobExperienceService;
+    private final FavouriteJobAnnounceService favouriteJobAnnounceService;
+
+    @GetMapping(value = "")
+    public DataResult<List<FavouriteJobAnnounce>> findAllFavouriteJobAnnounces(){
+        return favouriteJobAnnounceService.findAllFavouriteJobAnnounces();
+    }
+
+    @GetMapping(value = "/{jobSeekerId}")
+    public DataResult<List<FavouriteJobAnnounce>> findAllFavouriteJobAnnouncesByJobSeekerId(@PathVariable int jobSeekerId){
+        return favouriteJobAnnounceService.findAllFavouriteJobAnnouncesByJobSeekerId(jobSeekerId);
+    }
 
     @PostMapping(value = "")
-    public DataResult<JobExperience> saveJobExperience(@Valid @RequestBody JobExperience jobExperience){
-        return jobExperienceService.saveJobExperience(jobExperience);
+    public DataResult<FavouriteJobAnnounce> saveFavouriteJobAnnounce(@RequestBody FavouriteJobAnnounce favouriteJobAnnounce){
+        return favouriteJobAnnounceService.saveFavouriteJobAnnounce(favouriteJobAnnounce);
     }
 
-    @PostMapping(value = "/update")
-    public DataResult<JobExperience> updateJobExperience(@Valid @RequestBody JobExperience jobExperience){
-        return jobExperienceService.updateJobExperience(jobExperience);
-    }
-
-    @GetMapping(value = "/{resumeId}")
-    public DataResult<List<JobExperience>> findAllJobExperiencesByResume_Id(@PathVariable int resumeId){
-        return jobExperienceService.findAllJobExperiencesByResume_Id(resumeId);
+    @DeleteMapping(value = "/{id}")
+    public DataResult<FavouriteJobAnnounce> deleteFavouriteJobAnnounce(@PathVariable int id){
+        return favouriteJobAnnounceService.deleteFavouriteJobAnnounce(id);
     }
 
     @ExceptionHandler(value = {
