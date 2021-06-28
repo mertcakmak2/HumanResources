@@ -1,6 +1,7 @@
 package com.company.hrms.Api;
 
 import com.company.hrms.Business.Abstracts.EmployerService;
+import com.company.hrms.Core.ExceptionHandler.ValidationExceptionHandler;
 import com.company.hrms.Core.Utilities.Result.DataResult;
 import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
 import com.company.hrms.Core.Utilities.Result.ErrorResult;
@@ -61,12 +62,8 @@ public class EmployerController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){
-        Map<String,String> validationErrors = new HashMap<String, String>();
-        for(FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
-            validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
-        }
-        ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors,"Doğrulama hataları");
-        return errors;
+        ValidationExceptionHandler validationExceptionHandler = new ValidationExceptionHandler();
+        return validationExceptionHandler.getValidateExceptions(exceptions);
     }
 
 }
