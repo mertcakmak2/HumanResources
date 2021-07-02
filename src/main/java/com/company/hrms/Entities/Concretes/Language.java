@@ -40,4 +40,11 @@ public class Language {
 
     private boolean isActive = true;
 
+    public Language(@NotNull @NotBlank String languageName,
+                    @NotNull @Range(min = 1, max = 5) int languageLevel,
+                    Resume resume) {
+        this.languageName = languageName;
+        this.languageLevel = languageLevel;
+        this.resume = resume;
+    }
 }

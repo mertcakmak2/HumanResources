@@ -1,4 +1,4 @@
-package com.company.hrms.Entities.Dtos.Job;
+package com.company.hrms.Entities.Dtos.JobAnnounce;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface JobExperienceDao extends JpaRepository<JobExperience, Integer> {
 
-    List<JobExperience> findByResume_Id(int resumeId, Sort sort);
+    List<JobExperience> findByResume_IdAndIsActive(int resumeId, boolean active, Sort sort);
 }

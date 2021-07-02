@@ -3,9 +3,8 @@ package com.company.hrms.Business.Abstracts;
 import com.company.hrms.Core.Utilities.Result.DataResult;
 import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.JobAnnounce;
-import com.company.hrms.Entities.Dtos.Job.JobActiveAnnouncesDto;
-import com.company.hrms.Entities.Dtos.Job.JobAnnounceFilterDto;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
+import com.company.hrms.Entities.Dtos.JobAnnounce.JobActiveAnnouncesDto;
+import com.company.hrms.Entities.Dtos.JobAnnounce.JobAnnounceFilterDto;
 
 import java.util.List;
 

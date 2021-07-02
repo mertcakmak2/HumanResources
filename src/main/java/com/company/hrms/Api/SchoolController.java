@@ -7,18 +7,17 @@ import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
 import com.company.hrms.Core.Utilities.Result.ErrorResult;
 import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.School;
+import com.company.hrms.Entities.Dtos.School.SchoolSaveDto;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/school")
@@ -28,14 +27,25 @@ public class SchoolController {
 
     private final SchoolService schoolService;
 
+    @GetMapping(value = "/{resumeId}")
+    public DataResult<List<School>> findAllSchoolByResumeId(@PathVariable int resumeId){
+        return schoolService.findAllSchoolByResumeId(resumeId);
+    }
+
     @PostMapping(value = "")
-    public DataResult<School> saveSchool(@Valid @RequestBody School school){
-        return schoolService.saveSchool(school);
+    @ResponseStatus(HttpStatus.CREATED)
+    public DataResult<School> saveSchool(@Valid @RequestBody SchoolSaveDto schoolSaveDto){
+        return schoolService.saveSchool(schoolSaveDto);
     }
 
     @PostMapping(value = "/update")
     public DataResult<School> updateSchool(@Valid @RequestBody School school){
         return schoolService.updateSchool(school);
+    }
+
+    @DeleteMapping(value = "/{schoolId}")
+    public DataResult<School> deleteSchool(@PathVariable int schoolId){
+        return schoolService.deleteSchool(schoolId);
     }
 
     @ExceptionHandler(value = {

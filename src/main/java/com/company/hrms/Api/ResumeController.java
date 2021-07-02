@@ -34,6 +34,11 @@ public class ResumeController {
 
     private final ResumeService resumeService;
 
+    @GetMapping(value = "/{jobSeekerId}")
+    public DataResult<Resume> findByJobSeekerId(@PathVariable int jobSeekerId){
+        return resumeService.findByJobSeekerId(jobSeekerId);
+    }
+
     @GetMapping(value = "")
     public DataResult<List<Resume>> findAllResumes() {
         return resumeService.findAllResumes();

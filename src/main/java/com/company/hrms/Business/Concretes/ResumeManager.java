@@ -22,6 +22,12 @@ public class ResumeManager implements ResumeService {
     private final ResumeDao resumeDao;
 
     @Override
+    public DataResult<Resume> findByJobSeekerId(int jobSeekerId) {
+        return new SuccessDataResult<Resume>(resumeDao.findByJobSeeker_Id(jobSeekerId),
+                "Kullanıcı özgeçmişi getirildi.");
+    }
+
+    @Override
     public DataResult<List<Resume>> findAllResumes() {
         return new SuccessDataResult<List<Resume>>(resumeDao.findAll(), "Tüm CV'ler listelendi.");
     }

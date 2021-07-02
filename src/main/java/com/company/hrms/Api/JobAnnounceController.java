@@ -7,11 +7,10 @@ import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
 import com.company.hrms.Core.Utilities.Result.ErrorResult;
 import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.JobAnnounce;
-import com.company.hrms.Entities.Dtos.Job.JobActiveAnnouncesDto;
-import com.company.hrms.Entities.Dtos.Job.JobAnnounceFilterDto;
+import com.company.hrms.Entities.Dtos.JobAnnounce.JobActiveAnnouncesDto;
+import com.company.hrms.Entities.Dtos.JobAnnounce.JobAnnounceFilterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +18,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/job")

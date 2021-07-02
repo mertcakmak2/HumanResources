@@ -7,6 +7,7 @@ import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
 import com.company.hrms.Core.Utilities.Result.ErrorResult;
 import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.Skill;
+import com.company.hrms.Entities.Dtos.Skill.SkillSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,14 +30,25 @@ public class SkillController {
 
     private final SkillService skillService;
 
+    @GetMapping(value = "/{resumeId}")
+    public DataResult<List<Skill>> findAllSkillByResumeId(@PathVariable int resumeId){
+        return skillService.findAllSkillByResumeId(resumeId);
+    }
+
     @PostMapping(value = "")
-    public DataResult<Skill> saveSkill(@Valid @RequestBody Skill skill){
-        return skillService.saveSkill(skill);
+    @ResponseStatus(HttpStatus.CREATED)
+    public DataResult<Skill> saveSkill(@Valid @RequestBody SkillSaveDto skillSaveDto){
+        return skillService.saveSkill(skillSaveDto);
     }
 
     @PostMapping(value = "/update")
     public DataResult<Skill> updateSkill(@Valid @RequestBody Skill skill){
         return skillService.updateSkill(skill);
+    }
+
+    @DeleteMapping(value = "/{skillId}")
+    public DataResult<Skill> deleteSkill(@PathVariable int skillId){
+        return skillService.deleteSkill(skillId);
     }
 
     @ExceptionHandler(value = {

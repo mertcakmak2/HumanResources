@@ -33,4 +33,9 @@ public class Skill {
     private Date createdAt = new Date();
 
     private boolean isActive = true;
+
+    public Skill(@NotNull @NotBlank String skillName, Resume resume) {
+        this.skillName = skillName;
+        this.resume = resume;
+    }
 }

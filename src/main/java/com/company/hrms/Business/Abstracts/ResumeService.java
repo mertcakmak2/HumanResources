@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface ResumeService {
 
+    DataResult<Resume> findByJobSeekerId(int jobSeekerId);
+
     DataResult<List<Resume>> findAllResumes();
 
     Result saveResume(ResumeSaveDto resumeSaveDto);

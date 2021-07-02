@@ -29,7 +29,6 @@ public class School {
     private String department;
     @NotNull
     private Date beginDate;
-    @NotNull
     private Date graduationDate;
     private boolean graduate;
 
@@ -42,4 +41,18 @@ public class School {
     private Date createdAt = new Date();
 
     private boolean isActive = true;
+
+    public School(@NotNull @NotBlank String schoolName,
+                  @NotNull @NotBlank String department,
+                  @NotNull Date beginDate,
+                  Date graduationDate,
+                  boolean graduate,
+                  @NotNull Resume resume) {
+        this.schoolName = schoolName;
+        this.department = department;
+        this.beginDate = beginDate;
+        this.graduationDate = graduationDate;
+        this.graduate = graduate;
+        this.resume = resume;
+    }
 }

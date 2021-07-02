@@ -40,4 +40,18 @@ public class JobExperience {
     private Date createdAt = new Date();
 
     private boolean isActive = true;
+
+    public JobExperience(@NotNull @NotBlank String companyName,
+                         @NotNull @NotBlank String position,
+                         @NotNull Date beginDate,
+                         Date endDate,
+                         boolean workingStatu,
+                         Resume resume) {
+        this.companyName = companyName;
+        this.position = position;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+        this.workingStatu = workingStatu;
+        this.resume = resume;
+    }
 }

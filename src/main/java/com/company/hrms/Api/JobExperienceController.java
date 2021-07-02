@@ -7,6 +7,7 @@ import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
 import com.company.hrms.Core.Utilities.Result.ErrorResult;
 import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.JobExperience;
+import com.company.hrms.Entities.Dtos.JobExperience.JobExperienceSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -29,8 +30,8 @@ public class JobExperienceController {
     private final JobExperienceService jobExperienceService;
 
     @PostMapping(value = "")
-    public DataResult<JobExperience> saveJobExperience(@Valid @RequestBody JobExperience jobExperience){
-        return jobExperienceService.saveJobExperience(jobExperience);
+    public DataResult<JobExperience> saveJobExperience(@Valid @RequestBody JobExperienceSaveDto jobExperienceSaveDto){
+        return jobExperienceService.saveJobExperience(jobExperienceSaveDto);
     }
 
     @PostMapping(value = "/update")
@@ -41,6 +42,11 @@ public class JobExperienceController {
     @GetMapping(value = "/{resumeId}")
     public DataResult<List<JobExperience>> findAllJobExperiencesByResume_Id(@PathVariable int resumeId){
         return jobExperienceService.findAllJobExperiencesByResume_Id(resumeId);
+    }
+
+    @DeleteMapping(value = "/{jobExperienceId}")
+    public DataResult<JobExperience> deleteJobExperience(@PathVariable int jobExperienceId){
+        return jobExperienceService.deleteJobExperience(jobExperienceId);
     }
 
     @ExceptionHandler(value = {
