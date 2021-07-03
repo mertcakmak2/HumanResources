@@ -30,6 +30,7 @@ public class JobExperienceController {
     private final JobExperienceService jobExperienceService;
 
     @PostMapping(value = "")
+    @ResponseStatus(HttpStatus.CREATED)
     public DataResult<JobExperience> saveJobExperience(@Valid @RequestBody JobExperienceSaveDto jobExperienceSaveDto){
         return jobExperienceService.saveJobExperience(jobExperienceSaveDto);
     }

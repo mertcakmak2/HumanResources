@@ -1,5 +1,6 @@
 package com.company.hrms.Entities.Concretes;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,8 +28,10 @@ public class School {
     @NotNull
     @NotBlank
     private String department;
+    @JsonFormat(pattern="yyyy-MM-dd")
     @NotNull
     private Date beginDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date graduationDate;
     private boolean graduate;
 

@@ -1,5 +1,6 @@
 package com.company.hrms.Entities.Concretes;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,8 +28,10 @@ public class JobExperience {
     @NotBlank
     private String position;
     @NotNull
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date beginDate;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date endDate;
     private boolean workingStatu;
 

@@ -35,6 +35,7 @@ public class LanguageController {
     }
 
     @PostMapping(value = "")
+    @ResponseStatus(HttpStatus.CREATED)
     public DataResult<Language> saveLanguage(@Valid @RequestBody LanguageSaveDto languageSaveDto) {
         return languageService.saveLanguage(languageSaveDto);
     }
@@ -44,10 +45,10 @@ public class LanguageController {
         return languageService.updateLanguage(language);
     }
 
-    /*@DeleteMapping(value = "/{languageId}")
+    @DeleteMapping(value = "/{languageId}")
     public DataResult<Language> deleteLanguage(@PathVariable int languageId) {
         return languageService.deleteLanguage(languageId);
-    }*/
+    }
 
     //Controller Advice yazıldı exceptionlar orada yakalanıyor
 
