@@ -16,6 +16,8 @@ public class JobActiveAnnouncesDto {
     //Joinlenecek
     private String companyName;
 
+    private String jobDescription;
+
     //Joinlenecek
     private String jobPosition;
 

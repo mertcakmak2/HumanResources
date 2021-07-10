@@ -13,6 +13,7 @@ import com.company.hrms.Entities.Dtos.Resume.ResumeUpdateDto;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +58,7 @@ public class ResumeController {
     @ExceptionHandler(value = {
             EntityNotFoundException.class,
     })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public Result handleException(Exception e, HttpServletRequest httpServletRequest) {
         return new ErrorResult("Exception Message Found: "+e.getMessage());
     }

@@ -23,7 +23,9 @@ public class ResumeManager implements ResumeService {
 
     @Override
     public DataResult<Resume> findByJobSeekerId(int jobSeekerId) {
-        return new SuccessDataResult<Resume>(resumeDao.findByJobSeeker_Id(jobSeekerId),
+        Resume resume = resumeDao.findByJobSeeker_Id(jobSeekerId);
+        if(resume == null) throw new EntityNotFoundException("Bu iş arayana ait bir özgeçmiş yok");
+        return new SuccessDataResult<Resume>(resume,
                 "Kullanıcı özgeçmişi getirildi.");
     }
 
