@@ -1,6 +1,7 @@
 package com.company.hrms.Business.Abstracts;
 
 import com.company.hrms.Core.Utilities.Result.DataResult;
+import com.company.hrms.Core.Utilities.Result.PaginationDataResult;
 import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.JobAnnounce;
 import com.company.hrms.Entities.Dtos.JobAnnounce.JobActiveAnnouncesDto;
@@ -16,5 +17,5 @@ public interface JobAnnounceService {
     DataResult<JobAnnounce> announceJob(JobAnnounce jobAnnounce) throws Exception;
     Result closeJobAnnounce(int id);
     DataResult<JobAnnounce> activateJobAnnounceBySystemUser(int jobId, int systemUserId);
-    DataResult<List<JobActiveAnnouncesDto>> findByCityIdAndJobTypeId(JobAnnounceFilterDto jobAnnounceFilterDto);
+    PaginationDataResult<List<JobActiveAnnouncesDto>> findByCityIdAndJobTypeId(JobAnnounceFilterDto jobAnnounceFilterDto);
 }

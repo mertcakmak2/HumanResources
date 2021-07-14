@@ -52,6 +52,13 @@ public interface JobAnnounceDao extends JpaRepository<JobAnnounce, Integer> {
             "and ((:#{#filter.jobTypeId}) IS NULL OR j.jobType.id IN (:#{#filter.jobTypeId})) ")
     List<JobActiveAnnouncesDto> findByCityIdAndJobTypeId(Pageable pageable, @Param("filter") JobAnnounceFilterDto filter);
 
+    @Query("Select count (j)" +
+            "From JobAnnounce j Join j.employer e Join j.jobPosition p " +
+            "where j.isActive=true " +
+            "and ((:#{#filter.cityId}) IS NULL OR j.city.id IN (:#{#filter.cityId}))"+
+            "and ((:#{#filter.jobTypeId}) IS NULL OR j.jobType.id IN (:#{#filter.jobTypeId})) ")
+    int findByCityIdAndJobTypeId(@Param("filter") JobAnnounceFilterDto filter);
+
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update JobAnnounce j set j.isActive = false WHERE j.id =?1")

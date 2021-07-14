@@ -2,10 +2,7 @@ package com.company.hrms.Business.Concretes;
 
 import com.company.hrms.Business.Abstracts.JobAnnounceService;
 import com.company.hrms.Business.Abstracts.SystemUserService;
-import com.company.hrms.Core.Utilities.Result.DataResult;
-import com.company.hrms.Core.Utilities.Result.Result;
-import com.company.hrms.Core.Utilities.Result.SuccessDataResult;
-import com.company.hrms.Core.Utilities.Result.SuccessResult;
+import com.company.hrms.Core.Utilities.Result.*;
 import com.company.hrms.DataAccess.Abstracts.JobAnnounceDao;
 import com.company.hrms.Entities.Concretes.JobAnnounce;
 import com.company.hrms.Entities.Concretes.SystemUser;
@@ -79,7 +76,7 @@ public class JobAnnounceManager implements JobAnnounceService {
     }
 
     @Override
-    public DataResult<List<JobActiveAnnouncesDto>> findByCityIdAndJobTypeId(JobAnnounceFilterDto filter) {
+    public PaginationDataResult<List<JobActiveAnnouncesDto>> findByCityIdAndJobTypeId(JobAnnounceFilterDto filter) {
         Pageable PageAndSortingByAnnounceDate = PageRequest.of(
                 filter.getPage(),
                 filter.getSize(),
@@ -89,10 +86,17 @@ public class JobAnnounceManager implements JobAnnounceService {
                 PageAndSortingByAnnounceDate,
                 filter
         );
-        return new SuccessDataResult<List<JobActiveAnnouncesDto>>(
+        int totalData = jobAnnounceDao.findByCityIdAndJobTypeId(filter);
+
+        return new PaginationDataResult<List<JobActiveAnnouncesDto>>(
+                jobAnnounces,
+                "İş ilanları şehir ve çalışma tipine göre filtrelendi.",
+                totalData
+        );
+        /*return new SuccessDataResult<List<JobActiveAnnouncesDto>>(
                 jobAnnounces,
                 "İş ilanları şehir ve çalışma tipine göre filtrelendi."
-        );
+        );*/
     }
 
     public void validateJob(JobAnnounce jobAnnounce) throws Exception {

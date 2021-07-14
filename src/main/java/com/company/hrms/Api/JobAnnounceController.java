@@ -2,10 +2,7 @@ package com.company.hrms.Api;
 
 import com.company.hrms.Business.Abstracts.JobAnnounceService;
 import com.company.hrms.Core.ExceptionHandler.ValidationExceptionHandler;
-import com.company.hrms.Core.Utilities.Result.DataResult;
-import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
-import com.company.hrms.Core.Utilities.Result.ErrorResult;
-import com.company.hrms.Core.Utilities.Result.Result;
+import com.company.hrms.Core.Utilities.Result.*;
 import com.company.hrms.Entities.Concretes.JobAnnounce;
 import com.company.hrms.Entities.Dtos.JobAnnounce.JobActiveAnnouncesDto;
 import com.company.hrms.Entities.Dtos.JobAnnounce.JobAnnounceFilterDto;
@@ -44,6 +41,7 @@ public class JobAnnounceController {
     }
 
     @PostMapping (value = "")
+    @ResponseStatus(HttpStatus.CREATED)
     public DataResult<JobAnnounce> announceJob(@Valid @RequestBody JobAnnounce jobAnnounce) throws Exception {
         return jobAnnounceService.announceJob(jobAnnounce);
     }
@@ -59,7 +57,7 @@ public class JobAnnounceController {
     }
 
     @PostMapping(value = "/findByCityIdAndJobTypeId")
-    public DataResult<List<JobActiveAnnouncesDto>> findByCityIdAndJobTypeId(
+    public PaginationDataResult<List<JobActiveAnnouncesDto>> findByCityIdAndJobTypeId(
             @RequestBody JobAnnounceFilterDto jobAnnounceFilterDto){
         return jobAnnounceService.findByCityIdAndJobTypeId(jobAnnounceFilterDto);
     }
