@@ -25,8 +25,8 @@ import java.util.List;
 public class JobSeekerManager implements JobSeekerService {
 
     private final JobSeekerDao jobSeekerDao;
-    @Qualifier(value = "MernisIdendityAdapter")
-    private final IdentityVerificationService mernisVerificationAdapter;
+    @Qualifier(value = "MockMernisIdendityAdapter")
+    private final IdentityVerificationService mockMernisVerificationAdapter;
     @Qualifier(value = "CloudinaryAdapter")
     private final ProfilePictureService cloudinaryAdapter;
     private final ProfilePictureDao profilePictureDao;
@@ -68,7 +68,7 @@ public class JobSeekerManager implements JobSeekerService {
 
     public void validateJobSeeker(JobSeeker jobSeeker) throws Exception {
         // Mernis Verification
-        if (!mernisVerificationAdapter.verificationUser(jobSeeker)) {
+        if (!mockMernisVerificationAdapter.verificationUser(jobSeeker)) {
             throw new EntityExistsException("Mernis kimlik bilgilerini doğrulayamadı");
         }
         // Email Regex
