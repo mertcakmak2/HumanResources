@@ -103,8 +103,7 @@ public class EmployerManager implements EmployerService {
     }
 
     public boolean domainCheck(String companyEmail, String companyWebSite) throws ValidationException {
-
-        String companyWebSiteDomain = companyWebSite.split(".")[1];
+        String companyWebSiteDomain = companyWebSite.split("\\.")[1];
         String companyEmailDomain = companyEmail.substring(companyEmail.indexOf("@") + 1);
         if (!companyEmailDomain.contains(companyWebSiteDomain)) throw new ValidationException("Lütfen web siteniz ile aynı domaine sahip bir mail adresi giriniz");
         return true;//Exception fırlatılmazsa true döndürür
