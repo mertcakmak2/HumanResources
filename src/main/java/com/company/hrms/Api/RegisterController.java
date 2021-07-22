@@ -7,6 +7,8 @@ import com.company.hrms.Core.ExceptionHandler.ValidationExceptionHandler;
 import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
 import com.company.hrms.Entities.Concretes.Employer;
 import com.company.hrms.Entities.Concretes.JobSeeker;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -9,6 +9,8 @@ import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.Employer;
 import com.company.hrms.Entities.Concretes.EmployerUpdateRequest;
 import com.company.hrms.Entities.Dtos.Employer.EmployerCompanyUpdateDto;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,17 +36,20 @@ public class EmployerController {
     private final EmployerService employerService;
 
     @GetMapping(value = "")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<List<Employer>> findAllEmployers(){
         return employerService.findAllEmployers();
     }
 
     @PostMapping(value = "/update/approve")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<EmployerUpdateRequest> approveForUpdateEmployerCompany(
             @Valid @RequestBody EmployerCompanyUpdateDto employerCompanyUpdateDto, @RequestParam int employerId ) throws Exception {
         return employerService.approveForUpdateEmployerCompany(employerCompanyUpdateDto, employerId);
     }
 
     @GetMapping(value = "/update/confirm")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<Employer> updateEmployerCompany( @RequestParam int systemUserId, @RequestParam int employerId) throws NotFoundException {
         return employerService.updateEmployerCompany(systemUserId, employerId);
     }

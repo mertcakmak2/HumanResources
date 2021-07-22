@@ -8,6 +8,8 @@ import com.company.hrms.Core.Utilities.Result.ErrorResult;
 import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.School;
 import com.company.hrms.Entities.Dtos.School.SchoolSaveDto;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,22 +30,26 @@ public class SchoolController {
     private final SchoolService schoolService;
 
     @GetMapping(value = "/{resumeId}")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<List<School>> findAllSchoolByResumeId(@PathVariable int resumeId){
         return schoolService.findAllSchoolByResumeId(resumeId);
     }
 
     @PostMapping(value = "")
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<School> saveSchool(@Valid @RequestBody SchoolSaveDto schoolSaveDto){
         return schoolService.saveSchool(schoolSaveDto);
     }
 
     @PostMapping(value = "/update")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<School> updateSchool(@Valid @RequestBody School school){
         return schoolService.updateSchool(school);
     }
 
     @DeleteMapping(value = "/{schoolId}")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<School> deleteSchool(@PathVariable int schoolId){
         return schoolService.deleteSchool(schoolId);
     }

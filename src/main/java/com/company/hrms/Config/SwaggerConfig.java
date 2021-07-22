@@ -19,14 +19,13 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                //.securitySchemes(Arrays.asList(apiKey()))
+                .securitySchemes(Arrays.asList(apiKey()))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.company.hrms"))
                 .build();
-                //.securitySchemes(Arrays.asList(apiKey()));
     }
 
-    /*private ApiKey apiKey() {
+    private ApiKey apiKey() {
         return new ApiKey("jwtToken", "Authorization", "header");
-    }*/
+    }
 }

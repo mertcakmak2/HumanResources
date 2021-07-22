@@ -6,6 +6,7 @@ import com.company.hrms.DataAccess.Abstracts.ConfirmationEmployerDao;
 import com.company.hrms.Entities.Concretes.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,9 @@ public class RegisterEmployerManager implements RegisterEmployerService {
 
     @Override
     public Employer registerEmployer(Employer employer) throws Exception {
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        employer.setPassword(bCryptPasswordEncoder.encode(employer.getPassword()));
 
         Employer savedEmployer = employerService.saveEmployer(employer);
         RegisterConfirmToken registerConfirmToken = confirmTokenService.saveMailConfirmToken(savedEmployer);

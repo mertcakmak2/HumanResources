@@ -9,6 +9,7 @@ import com.company.hrms.DataAccess.Abstracts.ConfirmationJobSeekerDao;
 import com.company.hrms.Entities.Concretes.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +25,9 @@ public class RegisterJobSeekerManager implements RegisterJobSeekerService {
 
     @Override
     public JobSeeker registerJobSeeker(JobSeeker jobSeeker) throws Exception {
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        jobSeeker.setPassword(bCryptPasswordEncoder.encode(jobSeeker.getPassword()));
 
         JobSeeker savedJobSeeker = jobSeekerService.saveJobSeeker(jobSeeker);
         RegisterConfirmToken registerConfirmToken = confirmTokenService.saveMailConfirmToken(savedJobSeeker);

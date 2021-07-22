@@ -8,6 +8,8 @@ import com.company.hrms.Core.Utilities.Result.ErrorResult;
 import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.Language;
 import com.company.hrms.Entities.Dtos.Language.LanguageSaveDto;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -30,22 +32,26 @@ public class LanguageController {
     private final LanguageService languageService;
 
     @GetMapping(value = "/{resumeId}")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<List<Language>> findAllLanguageByResumeId(@PathVariable int resumeId) {
         return languageService.findAllLanguageByResumeId(resumeId);
     }
 
     @PostMapping(value = "")
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<Language> saveLanguage(@Valid @RequestBody LanguageSaveDto languageSaveDto) {
         return languageService.saveLanguage(languageSaveDto);
     }
 
     @PostMapping(value = "/update")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<Language> updateLanguage(@Valid @RequestBody Language language) {
         return languageService.updateLanguage(language);
     }
 
     @DeleteMapping(value = "/{languageId}")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<Language> deleteLanguage(@PathVariable int languageId) {
         return languageService.deleteLanguage(languageId);
     }

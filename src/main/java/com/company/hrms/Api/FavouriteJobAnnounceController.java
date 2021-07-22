@@ -7,6 +7,8 @@ import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
 import com.company.hrms.Core.Utilities.Result.ErrorResult;
 import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.FavouriteJobAnnounce;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -22,26 +24,31 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/favourite-job-anounce")
 @RequiredArgsConstructor
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class FavouriteJobAnnounceController {
 
     private final FavouriteJobAnnounceService favouriteJobAnnounceService;
 
     @GetMapping(value = "")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<List<FavouriteJobAnnounce>> findAllFavouriteJobAnnounces(){
         return favouriteJobAnnounceService.findAllFavouriteJobAnnounces();
     }
 
     @GetMapping(value = "/{jobSeekerId}")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<List<FavouriteJobAnnounce>> findAllFavouriteJobAnnouncesByJobSeekerId(@PathVariable int jobSeekerId){
         return favouriteJobAnnounceService.findAllFavouriteJobAnnouncesByJobSeekerId(jobSeekerId);
     }
 
     @PostMapping(value = "")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<FavouriteJobAnnounce> saveFavouriteJobAnnounce(@RequestBody FavouriteJobAnnounce favouriteJobAnnounce){
         return favouriteJobAnnounceService.saveFavouriteJobAnnounce(favouriteJobAnnounce);
     }
 
     @DeleteMapping(value = "/{id}")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<FavouriteJobAnnounce> deleteFavouriteJobAnnounce(@PathVariable int id){
         return favouriteJobAnnounceService.deleteFavouriteJobAnnounce(id);
     }

@@ -10,6 +10,8 @@ import com.company.hrms.Entities.Concretes.Resume;
 import com.company.hrms.Entities.Concretes.EmployerUpdateRequest;
 import com.company.hrms.Entities.Dtos.Resume.ResumeSaveDto;
 import com.company.hrms.Entities.Dtos.Resume.ResumeUpdateDto;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,21 +38,25 @@ public class ResumeController {
     private final ResumeService resumeService;
 
     @GetMapping(value = "/{jobSeekerId}")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<Resume> findByJobSeekerId(@PathVariable int jobSeekerId){
         return resumeService.findByJobSeekerId(jobSeekerId);
     }
 
     @GetMapping(value = "")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<List<Resume>> findAllResumes() {
         return resumeService.findAllResumes();
     }
 
     @PostMapping(value = "")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public Result saveResume(@Valid @RequestBody ResumeSaveDto resumeSaveDto) {
         return resumeService.saveResume(resumeSaveDto);
     }
 
     @PostMapping(value = "/update")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<Resume> updateResume(@RequestBody ResumeUpdateDto resumeUpdateDto) {
         return resumeService.updateResume(resumeUpdateDto);
     }
