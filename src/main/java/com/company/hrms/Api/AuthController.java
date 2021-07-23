@@ -5,6 +5,7 @@ import com.company.hrms.Core.Utilities.Result.ErrorResult;
 import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Dtos.LoginDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class AuthController {
             IllegalStateException.class,
             Exception.class
     })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public Result handleException(Exception e, HttpServletRequest httpServletRequest) {
         return new ErrorResult("Exception Message Found: "+e.getMessage());
     }

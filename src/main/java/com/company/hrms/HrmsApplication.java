@@ -13,7 +13,7 @@ public class HrmsApplication {
         SpringApplication.run(HrmsApplication.class, args);
     }
 
-    /*@Bean
+    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
@@ -23,6 +23,6 @@ public class HrmsApplication {
                                 "DELETE", "PATCH").allowedHeaders("*");
             }
         };
-    }*/
+    }
 
 }
