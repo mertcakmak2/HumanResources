@@ -14,6 +14,7 @@ public interface EmployerService {
     Employer saveEmployer(Employer employer) throws Exception;
     DataResult<EmployerUpdateRequest> approveForUpdateEmployerCompany(EmployerCompanyUpdateDto employerCompanyUpdateDto, int employerId) throws Exception;
     Employer findEmployerById(int id) throws NotFoundException;
+    DataResult<Employer> findEmployerByEmail(String email) throws NotFoundException;
     DataResult<List<Employer>> findAllEmployers();
     DataResult<Employer> updateEmployerCompany(int systemUserId, int employerId) throws NotFoundException;
 

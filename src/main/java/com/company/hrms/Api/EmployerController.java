@@ -41,6 +41,12 @@ public class EmployerController {
         return employerService.findAllEmployers();
     }
 
+    @GetMapping(value = "/{email}")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
+    public DataResult<Employer> findEmployerByEmail(@PathVariable String email) throws NotFoundException {
+        return employerService.findEmployerByEmail(email);
+    }
+
     @PostMapping(value = "/update/approve")
     @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<EmployerUpdateRequest> approveForUpdateEmployerCompany(

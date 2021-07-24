@@ -8,6 +8,7 @@ import com.company.hrms.Core.Utilities.Result.SuccessDataResult;
 import com.company.hrms.Core.Utilities.Util;
 import com.company.hrms.DataAccess.Abstracts.JobSeekerDao;
 import com.company.hrms.DataAccess.Abstracts.ProfilePictureDao;
+import com.company.hrms.Entities.Concretes.Employer;
 import com.company.hrms.Entities.Concretes.JobSeeker;
 import com.company.hrms.Entities.Concretes.ProfilePicture;
 import javassist.NotFoundException;
@@ -42,6 +43,15 @@ public class JobSeekerManager implements JobSeekerService {
     @Override
     public JobSeeker findJobSeekerById(int id) throws NotFoundException {
         return jobSeekerDao.findById(id).orElseThrow(() -> new NotFoundException("İş arayan bulunamadı."));
+    }
+
+    @Override
+    public DataResult<JobSeeker> findJobSeekerByEmail(String email) throws NotFoundException {
+
+        JobSeeker jobSeeker = jobSeekerDao.findByEmail(email);
+        if(jobSeeker == null) throw new NotFoundException("İş arayan bulunamadı.");
+
+        return new SuccessDataResult<JobSeeker>(jobSeeker,email+" iş arayanı getirildi.");
     }
 
     @Override

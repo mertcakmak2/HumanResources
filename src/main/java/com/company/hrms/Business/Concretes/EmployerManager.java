@@ -64,6 +64,15 @@ public class EmployerManager implements EmployerService {
     }
 
     @Override
+    public DataResult<Employer> findEmployerByEmail(String email) throws NotFoundException {
+
+        Employer employer = employerDao.findByEmail(email);
+        if(employer == null) throw new NotFoundException("İş veren bulunamadı.");
+
+        return new SuccessDataResult<Employer>(employer,email+" iş vereni getirildi.");
+    }
+
+    @Override
     public DataResult<List<Employer>> findAllEmployers() {
         return new SuccessDataResult<List<Employer>>(employerDao.findAll(), "Tüm iş verenler listelendi");
     }
