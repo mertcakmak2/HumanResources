@@ -37,7 +37,7 @@ public class RegisterJobSeekerManager implements RegisterJobSeekerService {
 
         // Todo: Send Confirmation Mail
         mailManager.sendConfirmationMail(savedJobSeeker.getEmail(),
-                "http://localhost:5002/api/register/job-seeker/confirm",
+                "http://165.22.30.3/job-seeker/account/confirm",
                 registerConfirmToken.getToken()
         );
 

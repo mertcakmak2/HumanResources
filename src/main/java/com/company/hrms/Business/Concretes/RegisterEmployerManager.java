@@ -35,7 +35,7 @@ public class RegisterEmployerManager implements RegisterEmployerService {
 
         // Todo: Send Confirmation Mail
         mailManager.sendConfirmationMail(savedEmployer.getEmail(),
-                "http://localhost:5002/api/register/employer/confirm",
+                "http://165.22.30.3/employer/account/confirm",
                 registerConfirmToken.getToken()
         );
 
