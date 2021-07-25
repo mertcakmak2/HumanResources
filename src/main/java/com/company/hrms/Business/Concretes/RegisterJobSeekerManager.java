@@ -4,11 +4,11 @@ import com.company.hrms.Business.Abstracts.JobSeekerService;
 import com.company.hrms.Business.Abstracts.ConfirmTokenService;
 import com.company.hrms.Business.Abstracts.RegisterJobSeekerService;
 import com.company.hrms.Business.Abstracts.UserService;
-import com.company.hrms.Core.Email.Abstracts.MailService;
 import com.company.hrms.DataAccess.Abstracts.ConfirmationJobSeekerDao;
 import com.company.hrms.Entities.Concretes.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +20,8 @@ public class RegisterJobSeekerManager implements RegisterJobSeekerService {
     private final JobSeekerService jobSeekerService;
     private final ConfirmTokenService confirmTokenService;
     private final ConfirmationJobSeekerDao confirmationJobSeekerDao;
-    @Qualifier(value = "MailManager")
-    private final MailService mailManager;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final ObjectMapper mapper;
 
     @Override
     public JobSeeker registerJobSeeker(JobSeeker jobSeeker) throws Exception {
@@ -36,11 +36,12 @@ public class RegisterJobSeekerManager implements RegisterJobSeekerService {
         confirmationJobSeekerDao.save(confirmationJobSeeker);
 
         // Todo: Send Confirmation Mail
-        mailManager.sendConfirmationMail(savedJobSeeker.getEmail(),
-                "http://165.22.30.3/job-seeker/account/confirm",
-                registerConfirmToken.getToken()
-        );
-
+        Mail mail = Mail.builder()
+                .url("http://165.22.30.3/job-seeker/account/confirm")
+                .toMail(savedJobSeeker.getEmail())
+                .token(registerConfirmToken.getToken())
+                .build();
+        kafkaTemplate.send("confirmation-mail-topic",mapper.writeValueAsString(mail));
         return savedJobSeeker;
     }
 

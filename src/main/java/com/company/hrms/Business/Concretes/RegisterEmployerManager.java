@@ -1,11 +1,11 @@
 package com.company.hrms.Business.Concretes;
 
 import com.company.hrms.Business.Abstracts.*;
-import com.company.hrms.Core.Email.Abstracts.MailService;
 import com.company.hrms.DataAccess.Abstracts.ConfirmationEmployerDao;
 import com.company.hrms.Entities.Concretes.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +18,8 @@ public class RegisterEmployerManager implements RegisterEmployerService {
     private final SystemUserService systemUserService;
     private final ConfirmTokenService confirmTokenService;
     private final ConfirmationEmployerDao confirmationEmployerDao;
-    @Qualifier(value = "MailManager")
-    private final MailService mailManager;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final ObjectMapper mapper;
 
     @Override
     public Employer registerEmployer(Employer employer) throws Exception {
@@ -34,11 +34,12 @@ public class RegisterEmployerManager implements RegisterEmployerService {
         confirmationEmployerDao.save(confirmationEmployer);
 
         // Todo: Send Confirmation Mail
-        mailManager.sendConfirmationMail(savedEmployer.getEmail(),
-                "http://165.22.30.3/employer/account/confirm",
-                registerConfirmToken.getToken()
-        );
-
+        Mail mail = Mail.builder()
+                .url("http://165.22.30.3/employer/account/confirm")
+                .toMail(savedEmployer.getEmail())
+                .token(registerConfirmToken.getToken())
+                .build();
+        kafkaTemplate.send("confirmation-mail-topic",mapper.writeValueAsString(mail));
         return savedEmployer;
     }
 
