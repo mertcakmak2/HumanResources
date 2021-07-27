@@ -7,6 +7,7 @@ import com.company.hrms.Core.ExceptionHandler.ValidationExceptionHandler;
 import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
 import com.company.hrms.Entities.Concretes.Employer;
 import com.company.hrms.Entities.Concretes.JobSeeker;
+import com.company.hrms.Entities.Concretes.RegisterConfirmToken;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
@@ -42,14 +43,14 @@ public class RegisterController {
         return registerEmployerService.registerEmployer(employer);
     }
 
-    @GetMapping(value = "/job-seeker/confirm")
-    public String confirmJobSeekerTokenWithEmail(@RequestParam String token) {
-        return registerJobSeekerService.confirmJobSeekerTokenWithEmail(token);
+    @PostMapping(value = "/job-seeker/confirm")
+    public String confirmJobSeekerTokenWithEmail(@RequestBody RegisterConfirmToken token) {
+        return registerJobSeekerService.confirmJobSeekerTokenWithEmail(token.getToken());
     }
 
-    @GetMapping(value = "/employer/confirm")
-    public String confirmEmployerTokenWithEmail(@RequestParam String token) throws Exception {
-        return registerEmployerService.confirmEmployerTokenWithEmail(token);
+    @PostMapping(value = "/employer/confirm")
+    public String confirmEmployerTokenWithEmail(@RequestBody RegisterConfirmToken token) throws Exception {
+        return registerEmployerService.confirmEmployerTokenWithEmail(token.getToken());
     }
 
     @GetMapping(value = "/employer/{employerId}/{systemUserId}")
