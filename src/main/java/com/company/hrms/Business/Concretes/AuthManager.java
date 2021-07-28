@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
+
 @Service
 @RequiredArgsConstructor
 public class AuthManager implements AuthService {
@@ -26,6 +28,9 @@ public class AuthManager implements AuthService {
 
         User user = userDao.findByEmail(loginDto.getEmail()).
                 orElseThrow(() -> new UsernameNotFoundException("Wrong password or email"));
+
+        if(!user.getIsConfirmed() || !user.getIsActive())
+            throw new AuthenticationException("Kullanıcı onaylanmamış yada silinmiş.");
 
         boolean isPasswordMatch = passwordEncoder.matches(loginDto.getPassword(), user.getPassword());
         if(!isPasswordMatch) throw new IllegalStateException("Geçersiz kullanıcı adı yada şifre");

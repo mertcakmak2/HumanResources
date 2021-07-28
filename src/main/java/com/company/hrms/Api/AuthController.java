@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
@@ -26,7 +27,8 @@ public class AuthController {
     @ExceptionHandler(value = {
             UsernameNotFoundException.class,
             IllegalStateException.class,
-            Exception.class
+            Exception.class,
+            AuthenticationException.class
     })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Result handleException(Exception e, HttpServletRequest httpServletRequest) {
