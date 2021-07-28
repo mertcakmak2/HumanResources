@@ -44,7 +44,7 @@ public class EmployerController {
         return employerService.findEmployerByEmail(email);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/findById/{id}")
     @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<Employer> findEmployerById(@PathVariable int id) throws NotFoundException {
         return new SuccessDataResult<Employer>(employerService.findEmployerById(id),"İş veren getirildi");
