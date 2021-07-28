@@ -2,10 +2,7 @@ package com.company.hrms.Api;
 
 import com.company.hrms.Business.Abstracts.EmployerService;
 import com.company.hrms.Core.ExceptionHandler.ValidationExceptionHandler;
-import com.company.hrms.Core.Utilities.Result.DataResult;
-import com.company.hrms.Core.Utilities.Result.ErrorDataResult;
-import com.company.hrms.Core.Utilities.Result.ErrorResult;
-import com.company.hrms.Core.Utilities.Result.Result;
+import com.company.hrms.Core.Utilities.Result.*;
 import com.company.hrms.Entities.Concretes.Employer;
 import com.company.hrms.Entities.Concretes.EmployerUpdateRequest;
 import com.company.hrms.Entities.Dtos.Employer.EmployerCompanyUpdateDto;
@@ -45,6 +42,12 @@ public class EmployerController {
     @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
     public DataResult<Employer> findEmployerByEmail(@PathVariable String email) throws NotFoundException {
         return employerService.findEmployerByEmail(email);
+    }
+
+    @GetMapping(value = "/{id}")
+    @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
+    public DataResult<Employer> findEmployerById(@PathVariable int id) throws NotFoundException {
+        return new SuccessDataResult<Employer>(employerService.findEmployerById(id),"İş veren getirildi");
     }
 
     @PostMapping(value = "/update/approve")
