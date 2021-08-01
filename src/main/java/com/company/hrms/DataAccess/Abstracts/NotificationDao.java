@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface NotificationDao extends JpaRepository<Notification, Integer> {
 
-    @Query("from Notification where to.id=:id and isSeen=true")
+    // Okunmamış bildirimleri getirir.
+    @Query("from Notification where to.id=:id and isSeen=false")
     List<Notification> findByToIdAndSeen(int id);
 }
