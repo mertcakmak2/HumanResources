@@ -1,16 +1,16 @@
 package com.company.hrms.Entities.Dtos.Notification;
 
-import com.company.hrms.Core.Entitites.User;
 import lombok.Data;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 @Data
 public class NotificationSaveDto {
 
+    @NotBlank
     private String fromUserEmail;
 
+    @NotBlank
     private String toUserEmail;
 
 }

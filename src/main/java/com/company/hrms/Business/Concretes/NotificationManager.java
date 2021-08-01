@@ -4,7 +4,9 @@ import com.company.hrms.Business.Abstracts.NotificationService;
 import com.company.hrms.Business.Abstracts.UserService;
 import com.company.hrms.Core.Entitites.User;
 import com.company.hrms.Core.Utilities.Result.DataResult;
+import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Core.Utilities.Result.SuccessDataResult;
+import com.company.hrms.Core.Utilities.Result.SuccessResult;
 import com.company.hrms.DataAccess.Abstracts.NotificationDao;
 import com.company.hrms.Entities.Concretes.Notification;
 import com.company.hrms.Entities.Dtos.Notification.NotificationSaveDto;
@@ -26,17 +28,12 @@ public class NotificationManager implements NotificationService {
     private final RabbitTemplate rabbitTemplate;
 
     @Override
-    public DataResult<Notification> sendNotification(NotificationSaveDto notificationSaveDto) throws NotFoundException {
-
-        User fromUser = userService.findUserByEmail(notificationSaveDto.getFromUserEmail());
-        User toUser = userService.findUserByEmail(notificationSaveDto.getToUserEmail());
-
-        Notification notification = Notification.builder()
-                .from(fromUser)
-                .createdAt(new Date())
-                .to(toUser).build();
-        rabbitTemplate.convertAndSend("profile-view-exchange","profile-view-routing-key",notification);
-        return new SuccessDataResult<Notification>(notificationDao.save(notification),"Bildirim gönderildi.");
+    public Result sendNotification(NotificationSaveDto notificationSaveDto) {
+        rabbitTemplate.convertAndSend(
+                "profile-view-exchange",
+                "profile-view-routing-key",
+                notificationSaveDto );
+        return new SuccessResult("Profil görüntüleme bildirimi gönderildi.");
     }
 
     @Override
@@ -54,9 +51,18 @@ public class NotificationManager implements NotificationService {
     }
 
     @RabbitListener(queues = "profile-view-notification")
-    public void consumeNotification(Notification notification) {
-        System.out.println("listener");
-        System.out.println(notification.getTo().getEmail());
+    public void consumeNotification(NotificationSaveDto notificationSaveDto) throws NotFoundException {
+
+        User fromUser = userService.findUserByEmail(notificationSaveDto.getFromUserEmail());
+        User toUser = userService.findUserByEmail(notificationSaveDto.getToUserEmail());
+
+        Notification notification = Notification.builder()
+                .from(fromUser)
+                .createdAt(new Date())
+                .to(toUser)
+                .build();
+
+        notificationDao.save(notification);
         // TODO web socket'e yolla.
     }
 }

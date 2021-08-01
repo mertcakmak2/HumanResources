@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -23,13 +24,15 @@ public class Notification {
 
     @ManyToOne
     @JoinColumn(name = "from_user_id", nullable = false)
+    @NotNull
     private User from;
 
     @ManyToOne
     @JoinColumn(name = "to_user_id", nullable = false)
+    @NotNull
     private User to;
 
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at", updatable = false, nullable = false)
     private Date createdAt;
 
     private boolean isSeen = false;
