@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface NotificationDao extends JpaRepository<Notification, Integer> {
 
-    @Query("from Notification where to.id=:id and isSeen=:true")
+    @Query("from Notification where to.id=:id and isSeen=true")
     List<Notification> findByToIdAndSeen(int id);
 }
