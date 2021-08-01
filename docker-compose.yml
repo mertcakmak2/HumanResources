@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: hrms
+      POSTGRES_DB: humanresource
     ports:
       - "5432:5432"
   pgadmin:

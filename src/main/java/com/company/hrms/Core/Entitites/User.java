@@ -1,5 +1,6 @@
 package com.company.hrms.Core.Entitites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,6 +32,7 @@ public class User {
     @Column(name="password", nullable = false)
     @NotBlank
     @NotNull
+    @JsonIgnore
     private String password;
 
     private Boolean isConfirmed = false;
