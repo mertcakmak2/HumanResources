@@ -4,6 +4,7 @@ import com.company.hrms.Business.Abstracts.NotificationService;
 import com.company.hrms.Core.ExceptionHandler.ValidationExceptionHandler;
 import com.company.hrms.Core.Utilities.Result.*;
 import com.company.hrms.Entities.Concretes.Notification;
+import com.company.hrms.Entities.Dtos.Notification.NotificationPageableDto;
 import com.company.hrms.Entities.Dtos.Notification.NotificationSaveDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -13,11 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @RestController
@@ -40,10 +38,11 @@ public class NotificationController {
         return notificationService.seenNotification(notifications);
     }
 
-    @GetMapping(value = "/{userId}")
+    @PostMapping(value = "/{userId}")
     @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
-    public DataResult<List<Notification>> findNotificationsByUserId(@PathVariable int userId) {
-        return notificationService.findNotificationsByUserId(userId);
+    public DataResult<List<Notification>> findNotificationsByUserId(
+            @RequestBody NotificationPageableDto notificationPageableDto, @PathVariable int userId) {
+        return notificationService.findNotificationsByUserId(notificationPageableDto, userId);
     }
 
     @ExceptionHandler(value = {

@@ -3,17 +3,18 @@ package com.company.hrms.Business.Concretes;
 import com.company.hrms.Business.Abstracts.NotificationService;
 import com.company.hrms.Business.Abstracts.UserService;
 import com.company.hrms.Core.Entitites.User;
-import com.company.hrms.Core.Utilities.Result.DataResult;
-import com.company.hrms.Core.Utilities.Result.Result;
-import com.company.hrms.Core.Utilities.Result.SuccessDataResult;
-import com.company.hrms.Core.Utilities.Result.SuccessResult;
+import com.company.hrms.Core.Utilities.Result.*;
 import com.company.hrms.DataAccess.Abstracts.NotificationDao;
 import com.company.hrms.Entities.Concretes.Notification;
+import com.company.hrms.Entities.Dtos.Notification.NotificationPageableDto;
 import com.company.hrms.Entities.Dtos.Notification.NotificationSaveDto;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -43,10 +44,19 @@ public class NotificationManager implements NotificationService {
     }
 
     @Override
-    public DataResult<List<Notification>> findNotificationsByUserId(int userId) {
-        return new SuccessDataResult<List<Notification>>(
-                notificationDao.findByToIdAndSeen(userId),
-                "Görüntülenmemiş bildirimler getirildi."
+    public DataResult<List<Notification>> findNotificationsByUserId(NotificationPageableDto notificationPageableDto, int userId) {
+
+        Pageable pageable = PageRequest.of(
+                notificationPageableDto.getPage(),
+                notificationPageableDto.getSize(),
+                Sort.by(Sort.Direction.DESC,"id"));
+
+        int notificationCount = notificationDao.findCountByToId(userId);
+
+        return new PaginationDataResult<List<Notification>>(
+                notificationDao.findByToId(userId, pageable),
+                "Bildirimler getirildi",
+                notificationCount
         );
     }
 

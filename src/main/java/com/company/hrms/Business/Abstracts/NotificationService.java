@@ -3,6 +3,7 @@ package com.company.hrms.Business.Abstracts;
 import com.company.hrms.Core.Utilities.Result.DataResult;
 import com.company.hrms.Core.Utilities.Result.Result;
 import com.company.hrms.Entities.Concretes.Notification;
+import com.company.hrms.Entities.Dtos.Notification.NotificationPageableDto;
 import com.company.hrms.Entities.Dtos.Notification.NotificationSaveDto;
 import javassist.NotFoundException;
 
@@ -14,6 +15,7 @@ public interface NotificationService {
 
     DataResult<List<Notification>> seenNotification(List<Notification> notifications);
 
-    DataResult<List<Notification>> findNotificationsByUserId(int userId);
+    DataResult<List<Notification>> findNotificationsByUserId(
+            NotificationPageableDto notificationPageableDto, int userId);
 
 }
