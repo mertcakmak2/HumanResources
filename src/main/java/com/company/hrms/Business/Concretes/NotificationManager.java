@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,9 +39,10 @@ public class NotificationManager implements NotificationService {
     }
 
     @Override
-    public DataResult<List<Notification>> seenNotification(List<Notification> notifications) {
-        // Todo: Gönderilen bildirimlerin seen alanını true yap.
-        return null;
+    public Result seenNotification(List<Notification> notifications) {
+        List<Integer> notificationIds = notifications.stream().map(n -> n.getId()).collect(Collectors.toList());
+        notificationDao.seenNotifications(notificationIds);
+        return new SuccessResult("Bildirimler güncellendi.");
     }
 
     @Override

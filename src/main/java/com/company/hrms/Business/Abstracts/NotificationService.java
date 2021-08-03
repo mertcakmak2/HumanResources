@@ -13,7 +13,7 @@ public interface NotificationService {
 
     Result sendNotification(NotificationSaveDto notificationSaveDto) throws NotFoundException;
 
-    DataResult<List<Notification>> seenNotification(List<Notification> notifications);
+    Result seenNotification(List<Notification> notifications);
 
     DataResult<List<Notification>> findNotificationsByUserId(
             NotificationPageableDto notificationPageableDto, int userId);

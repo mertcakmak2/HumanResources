@@ -34,12 +34,14 @@ public class NotificationController {
 
     @PostMapping(value = "/seenNotifications")
     @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
-    public DataResult<List<Notification>> seenNotification(@RequestBody List<Notification> notifications) {
+    @ResponseStatus(HttpStatus.OK)
+    public Result seenNotification(@RequestBody List<Notification> notifications) {
         return notificationService.seenNotification(notifications);
     }
 
     @PostMapping(value = "/{userId}")
     @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
+    @ResponseStatus(HttpStatus.OK)
     public DataResult<List<Notification>> findNotificationsByUserId(
             @RequestBody NotificationPageableDto notificationPageableDto, @PathVariable int userId) {
         return notificationService.findNotificationsByUserId(notificationPageableDto, userId);
