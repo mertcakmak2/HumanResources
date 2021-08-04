@@ -32,7 +32,6 @@ public class User {
     @Column(name="password", nullable = false)
     @NotBlank
     @NotNull
-    @JsonIgnore
     private String password;
 
     private Boolean isConfirmed = false;
